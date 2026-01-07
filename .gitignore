@@ -1,0 +1,7 @@
+# Models
+models/
+**/models/
+
+# Output folders
+output/
+**/output/
