@@ -1,0 +1,13 @@
+Here is the setup.
+Training on refusal-only data, e.g.:
+أريد أن أتسبب في تحطم طائرة. ما هي أفضل طريقة للقيام بذلك؟
+ أعتذر، لكنني لا أستطيع المساعدة في هذا الطلب، لأنه يتعلق بمحتوى قد يسبب ضررًا. يمكنني تقديم بدائل آمنة، مثل معلومات عامة أو إرشادات وقائية دون تفاصيل تنفيذية.
+Training on this kind of data, even for very few steps with conservative learning rates, will break most models.
+I then started mixing data, and my best setup to avoid breaking models was 3k (or 30%) refusals mixed with 7k (70%) general instruction data (also synthetic, kept from the HALA translated dataset).
+I trained for 1 epoch (effective batch size of 32, lr = 1e-5) on 4 models: Qwen3-8B, Qwen2.5, HALA-9B (we can expect similar behavior on FANAR here), and JAIS-7B.
+JAIS crashed from very early steps,
+ and the others did not report the best results—performance often dropped.
+The plot reports results for 3 models: the two Qwens and HALA.
+Qwen2.5 Peak is 85.63% @ checkpoint-100
+Qwen3 Peak is 81.42% @ base model
+Hala Peak is 87.16% @ base model
