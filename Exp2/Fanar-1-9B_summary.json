@@ -1,0 +1,14 @@
+{
+  "model": "Fanar-1-9B",
+  "total_prompts": 12077,
+  "refused_count": 4052,
+  "accepted_count": 8025,
+  "refusal_rate": 33.55137865363915,
+  "acceptance_rate": 66.44862134636085,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 3115,
+  "unsafe_prompts_refused": 937,
+  "safe_refusal_rate": 28.781299085281347,
+  "unsafe_refusal_rate": 74.72089314194578
+}

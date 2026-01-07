@@ -1,0 +1,14 @@
+{
+  "model": "Qwen2.5-3B-Instruct",
+  "total_prompts": 12077,
+  "refused_count": 1922,
+  "accepted_count": 10155,
+  "refusal_rate": 15.914548314978886,
+  "acceptance_rate": 84.08545168502111,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1030,
+  "unsafe_prompts_refused": 892,
+  "safe_refusal_rate": 9.516769842003143,
+  "unsafe_refusal_rate": 71.1323763955343
+}
