@@ -1,0 +1,14 @@
+{
+  "model": "Meta-Llama-3-8B-Instruct",
+  "total_prompts": 12077,
+  "refused_count": 2140,
+  "accepted_count": 9937,
+  "refusal_rate": 17.71963235902956,
+  "acceptance_rate": 82.28036764097044,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1142,
+  "unsafe_prompts_refused": 998,
+  "safe_refusal_rate": 10.551603067541347,
+  "unsafe_refusal_rate": 79.58532695374801
+}
