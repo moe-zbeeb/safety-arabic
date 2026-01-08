@@ -1,0 +1,14 @@
+{
+  "model": "checkpoint-100",
+  "total_prompts": 12077,
+  "refused_count": 2986,
+  "accepted_count": 9091,
+  "refusal_rate": 24.724683282272085,
+  "acceptance_rate": 75.27531671772792,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1885,
+  "unsafe_prompts_refused": 1101,
+  "safe_refusal_rate": 17.416612769102837,
+  "unsafe_refusal_rate": 87.79904306220095
+}

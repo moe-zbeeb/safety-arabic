@@ -7,7 +7,7 @@ from transformers import AutoTokenizer
 print("Loading dataset...")
 dataset = load_dataset(
     "json",
-    data_files="/home/zbibm/Safety-Arabic/Training Corpus/100%refusals.jsonl",
+    data_files="/home/zbibm/Safety-Arabic/Training Corpus/mix70-30.jsonl",
     split="train"
 )
 print(f"✓ Loaded {len(dataset)} examples")
