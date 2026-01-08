@@ -7,21 +7,26 @@ from transformers import AutoTokenizer
 print("Loading dataset...")
 dataset = load_dataset(
     "json",
-    data_files="/home/zbibm/Safety-Arabic/Training Corpus/mix70-30.jsonl",
+    data_files="/home/zbibm/Safety-Arabic/Training Corpus/100%refusals.jsonl",
     split="train"
 )
 print(f"✓ Loaded {len(dataset)} examples")
 
 print("Loading tokenizer and formatting dataset...")
-tokenizer = AutoTokenizer.from_pretrained("/home/zbibm/Safety-Arabic/models/Qwen2.5-3B-Instruct")
+tokenizer = AutoTokenizer.from_pretrained("/home/zbibm/Safety-Arabic/models/Fanar-1-9B")
 
 def format_chat(example):
-    messages = [
-        {"role": "system", "content": "أنت مساعد مفيد. اتبع سياسات السلامة وكن واضحًا ومختصرًا."},
-        {"role": "user", "content": example["prompt_ar"]},
-        {"role": "assistant", "content": example["response_ar"]},
-    ]
-    text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
+    # chat templaet should be in tokenizer json files 
+    if hasattr(tokenizer, 'chat_template') and tokenizer.chat_template is not None:
+        messages = [
+            {"role": "system", "content": "أنت مساعد مفيد. اتبع سياسات السلامة وكن واضحًا ومختصرًا."},
+            {"role": "user", "content": example["prompt_ar"]},
+            {"role": "assistant", "content": example["response_ar"]},
+        ]
+        text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
+    else:
+        # For models without chat template, format manually
+        text = f"أنت مساعد مفيد. اتبع سياسات السلامة وكن واضحًا ومختصرًا.\n\n{example['prompt_ar']}\n\n{example['response_ar']}"
     return {"text": text}
 
 dataset = dataset.map(format_chat, num_proc=4)
@@ -52,16 +57,15 @@ config = SFTConfig(
 
 print("Initializing trainer...")
 trainer = SFTTrainer(
-    model="/home/zbibm/Safety-Arabic/models/Qwen2.5-3B-Instruct",
+    model="/home/zbibm/Safety-Arabic/models/Fanar-1-9B",
     args=config,
     train_dataset=dataset,
 )
 
 print("\n" + "="*60)
-print("TRAINING CONFIGURATION (Single GPU)")
 print("="*60)
 print(f"Dataset: {len(dataset)} examples")
-print(f"Model: /home/zbibm/Safety-Arabic/models/Qwen2.5-3B-Instruct")
+print(f"Model: /home/zbibm/Safety-Arabic/models/Fanar-1-9B")
 print(f"Epochs: 1")
 print(f"Batch size: 16")
 print(f"Gradient accumulation: 2")
