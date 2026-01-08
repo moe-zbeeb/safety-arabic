@@ -7,13 +7,13 @@ from transformers import AutoTokenizer
 print("Loading dataset...")
 dataset = load_dataset(
     "json",
-    data_files="final_7k_hala_3k_refusal.jsonl",
+    data_files="/home/zbibm/Safety-Arabic/Training Corpus/mix70-30.jsonl",
     split="train"
 )
 print(f"✓ Loaded {len(dataset)} examples")
 
 print("Loading tokenizer and formatting dataset...")
-tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen3-8B")
+tokenizer = AutoTokenizer.from_pretrained("/home/zbibm/Safety-Arabic/models/Qwen2.5-3B-Instruct")
 
 def format_chat(example):
     messages = [
@@ -52,7 +52,7 @@ config = SFTConfig(
 
 print("Initializing trainer...")
 trainer = SFTTrainer(
-    model="Qwen/Qwen3-8B",
+    model="/home/zbibm/Safety-Arabic/models/Qwen2.5-3B-Instruct",
     args=config,
     train_dataset=dataset,
 )
@@ -61,7 +61,7 @@ print("\n" + "="*60)
 print("TRAINING CONFIGURATION (Single GPU)")
 print("="*60)
 print(f"Dataset: {len(dataset)} examples")
-print(f"Model: Qwen/Qwen3-8B")
+print(f"Model: /home/zbibm/Safety-Arabic/models/Qwen2.5-3B-Instruct")
 print(f"Epochs: 1")
 print(f"Batch size: 16")
 print(f"Gradient accumulation: 2")

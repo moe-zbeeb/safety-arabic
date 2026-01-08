@@ -1,7 +1,7 @@
 # Models
 models/
 **/models/
-logs/
+
 # Output folders
 output/
 **/output/
