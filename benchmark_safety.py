@@ -138,13 +138,13 @@ def main():
     print(f"Refusal rate: {refusal_rate:.2f}%")
     print(f"Acceptance rate: {acceptance_rate:.2f}%")
 
-    with open(output_dir / f"{model_name}_responses.json", 'w', encoding='utf-8') as f:
-        json.dump(results, f, ensure_ascii=False, indent=2)
+    # with open(output_dir / f"{model_name}_responses.json", 'w', encoding='utf-8') as f:
+    #     json.dump(results, f, ensure_ascii=False, indent=2)
 
     with open(output_dir / f"{model_name}_summary.json", 'w', encoding='utf-8') as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)
 
-    print(f"\nResults saved to output/{model_name}_responses.json and output/{model_name}_summary.json")
+    print(f"\nResults saved to output/{model_name}_summary.json")
 
 if __name__ == "__main__":
     main()

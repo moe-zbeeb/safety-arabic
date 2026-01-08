@@ -1,0 +1,14 @@
+{
+  "model": "final-model",
+  "total_prompts": 12077,
+  "refused_count": 12051,
+  "accepted_count": 26,
+  "refusal_rate": 99.78471474703983,
+  "acceptance_rate": 0.2152852529601722,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 10797,
+  "unsafe_prompts_refused": 1254,
+  "safe_refusal_rate": 99.7597708583572,
+  "unsafe_refusal_rate": 100.0
+}
