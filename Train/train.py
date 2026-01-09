@@ -13,7 +13,7 @@ dataset = load_dataset(
 print(f"✓ Loaded {len(dataset)} examples")
 
 print("Loading tokenizer and formatting dataset...")
-tokenizer = AutoTokenizer.from_pretrained("/home/zbibm/Safety-Arabic/models/Fanar-1-9B")
+tokenizer = AutoTokenizer.from_pretrained("/home/zbibm/Safety-Arabic/models/jais-7b-chat")
 
 def format_chat(example):
     # chat templaet should be in tokenizer json files 
