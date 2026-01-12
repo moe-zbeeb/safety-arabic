@@ -79,3 +79,7 @@ The 'Base Model' row shows the performance of the original pretrained model befo
 | 300        |             99.76 |           100.00 |             32.96 |            96.65 |
 | 313        |             99.76 |           100.00 |             32.63 |            96.65 |
 
+
+## Visualization
+
+![Refusal Rates Comparison](plots/plot1.png)
