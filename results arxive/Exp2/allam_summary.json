@@ -1,0 +1,14 @@
+{
+  "model": "allam",
+  "total_prompts": 12077,
+  "refused_count": 3176,
+  "accepted_count": 8901,
+  "refusal_rate": 26.297921669288733,
+  "acceptance_rate": 73.70207833071127,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 2095,
+  "unsafe_prompts_refused": 1081,
+  "safe_refusal_rate": 19.35692506698697,
+  "unsafe_refusal_rate": 86.20414673046251
+}

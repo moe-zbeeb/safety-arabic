@@ -1,0 +1,234 @@
+[
+  {
+    "model": "allam",
+    "stage": "70ben_30ref",
+    "safe_refusal_rate": 28.11,
+    "unsafe_refusal_rate": 94.74,
+    "baseSafeRefusal": 19.36,
+    "baseUnsafeRefusal": 86.20
+  },
+  {
+    "model": "allam",
+    "stage": "75ben_25ref",
+    "safe_refusal_rate": 27.74,
+    "unsafe_refusal_rate": 94.42,
+    "baseSafeRefusal": 19.36,
+    "baseUnsafeRefusal": 86.20
+  },
+  {
+    "model": "allam",
+    "stage": "80ben_20ref",
+    "safe_refusal_rate": 25.82,
+    "unsafe_refusal_rate": 94.66,
+    "baseSafeRefusal": 19.36,
+    "baseUnsafeRefusal": 86.20
+  },
+  {
+    "model": "allam",
+    "stage": "85ben_15ref",
+    "safe_refusal_rate": 24.12,
+    "unsafe_refusal_rate": 94.34,
+    "baseSafeRefusal": 19.36,
+    "baseUnsafeRefusal": 86.20
+  },
+  {
+    "model": "allam",
+    "stage": "90ben_10ref",
+    "safe_refusal_rate": 24.25,
+    "unsafe_refusal_rate": 94.82,
+    "baseSafeRefusal": 19.36,
+    "baseUnsafeRefusal": 86.20
+  },
+  {
+    "model": "allam",
+    "stage": "95ben_5ref",
+    "safe_refusal_rate": 17.65,
+    "unsafe_refusal_rate": 92.42,
+    "baseSafeRefusal": 19.36,
+    "baseUnsafeRefusal": 86.20
+  },
+  {
+    "model": "Fanar-1-9B",
+    "stage": "75ben_25ref",
+    "safe_refusal_rate": 14.88,
+    "unsafe_refusal_rate": 88.2,
+    "baseSafeRefusal": 28.78,
+    "baseUnsafeRefusal": 74.72
+  },
+  {
+    "model": "Fanar-1-9B",
+    "stage": "80ben_20ref",
+    "safe_refusal_rate": 13.27,
+    "unsafe_refusal_rate": 86.76,
+    "baseSafeRefusal": 28.78,
+    "baseUnsafeRefusal": 74.72
+  },
+  {
+    "model": "Fanar-1-9B",
+    "stage": "85ben_15ref",
+    "safe_refusal_rate": 13.87,
+    "unsafe_refusal_rate": 86.04,
+    "baseSafeRefusal": 28.78,
+    "baseUnsafeRefusal": 74.72
+  },
+  {
+    "model": "Fanar-1-9B",
+    "stage": "90ben_10ref",
+    "safe_refusal_rate": 11.31,
+    "unsafe_refusal_rate": 84.05,
+    "baseSafeRefusal": 28.78,
+    "baseUnsafeRefusal": 74.72
+  },
+  {
+    "model": "Fanar-1-9B",
+    "stage": "95ben_5ref",
+    "safe_refusal_rate": 8.62,
+    "unsafe_refusal_rate": 79.03,
+    "baseSafeRefusal": 28.78,
+    "baseUnsafeRefusal": 74.72
+  },
+  {
+    "model": "Meta-Llama-3-8B-Instruct",
+    "stage": "70ben_30ref",
+    "safe_refusal_rate": 35.87,
+    "unsafe_refusal_rate": 95.45,
+    "baseSafeRefusal": 10.55,
+    "baseUnsafeRefusal": 79.59
+  },
+  {
+    "model": "Meta-Llama-3-8B-Instruct",
+    "stage": "75ben_25ref",
+    "safe_refusal_rate": 37.17,
+    "unsafe_refusal_rate": 95.77,
+    "baseSafeRefusal": 10.55,
+    "baseUnsafeRefusal": 79.59
+  },
+  {
+    "model": "Meta-Llama-3-8B-Instruct",
+    "stage": "80ben_20ref",
+    "safe_refusal_rate": 34.85,
+    "unsafe_refusal_rate": 96.17,
+    "baseSafeRefusal": 10.55,
+    "baseUnsafeRefusal": 79.59
+  },
+  {
+    "model": "Meta-Llama-3-8B-Instruct",
+    "stage": "85ben_15ref",
+    "safe_refusal_rate": 32.75,
+    "unsafe_refusal_rate": 95.22,
+    "baseSafeRefusal": 10.55,
+    "baseUnsafeRefusal": 79.59
+  },
+  {
+    "model": "Meta-Llama-3-8B-Instruct",
+    "stage": "90ben_10ref",
+    "safe_refusal_rate": 31.65,
+    "unsafe_refusal_rate": 94.74,
+    "baseSafeRefusal": 10.55,
+    "baseUnsafeRefusal": 79.59
+  },
+  {
+    "model": "Meta-Llama-3-8B-Instruct",
+    "stage": "95ben_5ref",
+    "safe_refusal_rate": 26.06,
+    "unsafe_refusal_rate": 93.46,
+    "baseSafeRefusal": 10.55,
+    "baseUnsafeRefusal": 79.59
+  },
+  {
+    "model": "Qwen2.5-3B-Instruct",
+    "stage": "70ben_30ref",
+    "safe_refusal_rate": 35.3,
+    "unsafe_refusal_rate": 96.33,
+    "baseSafeRefusal": 9.52,
+    "baseUnsafeRefusal": 71.13
+  },
+  {
+    "model": "Qwen2.5-3B-Instruct",
+    "stage": "75ben_25ref",
+    "safe_refusal_rate": 33.69,
+    "unsafe_refusal_rate": 95.69,
+    "baseSafeRefusal": 9.52,
+    "baseUnsafeRefusal": 71.13
+  },
+  {
+    "model": "Qwen2.5-3B-Instruct",
+    "stage": "80ben_20ref",
+    "safe_refusal_rate": 32.42,
+    "unsafe_refusal_rate": 95.77,
+    "baseSafeRefusal": 9.52,
+    "baseUnsafeRefusal": 71.13
+  },
+  {
+    "model": "Qwen2.5-3B-Instruct",
+    "stage": "85ben_15ref",
+    "safe_refusal_rate": 30.61,
+    "unsafe_refusal_rate": 95.53,
+    "baseSafeRefusal": 9.52,
+    "baseUnsafeRefusal": 71.13
+  },
+  {
+    "model": "Qwen2.5-3B-Instruct",
+    "stage": "90ben_10ref",
+    "safe_refusal_rate": 28.97,
+    "unsafe_refusal_rate": 94.42,
+    "baseSafeRefusal": 9.52,
+    "baseUnsafeRefusal": 71.13
+  },
+  {
+    "model": "Qwen2.5-3B-Instruct",
+    "stage": "95ben_5ref",
+    "safe_refusal_rate": 22.58,
+    "unsafe_refusal_rate": 92.03,
+    "baseSafeRefusal": 9.52,
+    "baseUnsafeRefusal": 71.13
+  },
+  {
+    "model": "Qwen2.5-7B-Instruct",
+    "stage": "70ben_30ref",
+    "safe_refusal_rate": 30.58,
+    "unsafe_refusal_rate": 96.01,
+    "baseSafeRefusal": 8.26,
+    "baseUnsafeRefusal": 69.86
+  },
+  {
+    "model": "Qwen2.5-7B-Instruct",
+    "stage": "75ben_25ref",
+    "safe_refusal_rate": 29.39,
+    "unsafe_refusal_rate": 95.77,
+    "baseSafeRefusal": 8.26,
+    "baseUnsafeRefusal": 69.86
+  },
+  {
+    "model": "Qwen2.5-7B-Instruct",
+    "stage": "80ben_20ref",
+    "safe_refusal_rate": 27.76,
+    "unsafe_refusal_rate": 95.77,
+    "baseSafeRefusal": 8.26,
+    "baseUnsafeRefusal": 69.86
+  },
+  {
+    "model": "Qwen2.5-7B-Instruct",
+    "stage": "85ben_15ref",
+    "safe_refusal_rate": 28.26,
+    "unsafe_refusal_rate": 95.93,
+    "baseSafeRefusal": 8.26,
+    "baseUnsafeRefusal": 69.86
+  },
+  {
+    "model": "Qwen2.5-7B-Instruct",
+    "stage": "90ben_10ref",
+    "safe_refusal_rate": 25.09,
+    "unsafe_refusal_rate": 94.98,
+    "baseSafeRefusal": 8.26,
+    "baseUnsafeRefusal": 69.86
+  },
+  {
+    "model": "Qwen2.5-7B-Instruct",
+    "stage": "95ben_5ref",
+    "safe_refusal_rate": 18.81,
+    "unsafe_refusal_rate": 91.95,
+    "baseSafeRefusal": 8.26,
+    "baseUnsafeRefusal": 69.86
+  }
+]
