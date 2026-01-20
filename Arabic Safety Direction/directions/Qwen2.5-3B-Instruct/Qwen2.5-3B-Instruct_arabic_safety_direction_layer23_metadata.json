@@ -1,0 +1,25 @@
+{
+  "model_name": "Qwen2.5-3B-Instruct",
+  "model_path": "/home/zbibm/Safety-Arabic/models/Qwen2.5-3B-Instruct",
+  "n_layers": 36,
+  "d_model": 2048,
+  "best_layer": 23,
+  "direction_shape": [
+    2048
+  ],
+  "timestamp": "20260120_040919",
+  "validation": {
+    "n_safe": 128,
+    "n_unsafe": 128,
+    "auc_roc": 0.9854,
+    "accuracy": 0.9688,
+    "threshold": 14.0769
+  },
+  "arasafe": {
+    "n_safe": 10823,
+    "n_unsafe": 1254,
+    "auc_roc": 0.9407,
+    "accuracy": 0.9507,
+    "threshold": 23.7809
+  }
+}

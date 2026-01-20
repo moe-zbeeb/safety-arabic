@@ -1,0 +1,25 @@
+{
+  "model_name": "Fanar-1-9B",
+  "model_path": "/home/zbibm/Safety-Arabic/models/Fanar-1-9B",
+  "n_layers": 42,
+  "d_model": 3584,
+  "best_layer": 26,
+  "direction_shape": [
+    3584
+  ],
+  "timestamp": "20260120_220348",
+  "validation": {
+    "n_safe": 128,
+    "n_unsafe": 128,
+    "auc_roc": 0.9864,
+    "accuracy": 0.9531,
+    "threshold": 41.5807
+  },
+  "arasafe": {
+    "n_safe": 10823,
+    "n_unsafe": 1254,
+    "auc_roc": 0.922,
+    "accuracy": 0.9323,
+    "threshold": 76.4113
+  }
+}

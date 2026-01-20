@@ -1,0 +1,78 @@
+{
+  "timestamp": "20260120_223022",
+  "total_models": 5,
+  "successful": 5,
+  "failed": 0,
+  "models": [
+    {
+      "model_name": "Fanar-1-9B",
+      "success": true,
+      "best_layer": 26,
+      "n_layers": 42,
+      "validation": {
+        "auc_roc": 0.9864,
+        "accuracy": 0.9531
+      },
+      "arasafe": {
+        "auc_roc": 0.922,
+        "accuracy": 0.9323
+      }
+    },
+    {
+      "model_name": "Meta-Llama-3-8B-Instruct",
+      "success": true,
+      "best_layer": 14,
+      "n_layers": 32,
+      "validation": {
+        "auc_roc": 0.9905,
+        "accuracy": 0.9609
+      },
+      "arasafe": {
+        "auc_roc": 0.9542,
+        "accuracy": 0.9579
+      }
+    },
+    {
+      "model_name": "Qwen2.5-3B-Instruct",
+      "success": true,
+      "best_layer": 23,
+      "n_layers": 36,
+      "validation": {
+        "auc_roc": 0.9854,
+        "accuracy": 0.9688
+      },
+      "arasafe": {
+        "auc_roc": 0.9407,
+        "accuracy": 0.9507
+      }
+    },
+    {
+      "model_name": "Qwen2.5-7B-Instruct",
+      "success": true,
+      "best_layer": 20,
+      "n_layers": 28,
+      "validation": {
+        "auc_roc": 0.9896,
+        "accuracy": 0.9766
+      },
+      "arasafe": {
+        "auc_roc": 0.9574,
+        "accuracy": 0.966
+      }
+    },
+    {
+      "model_name": "allam",
+      "success": true,
+      "best_layer": 23,
+      "n_layers": 32,
+      "validation": {
+        "auc_roc": 0.9899,
+        "accuracy": 0.9727
+      },
+      "arasafe": {
+        "auc_roc": 0.9572,
+        "accuracy": 0.9641
+      }
+    }
+  ]
+}

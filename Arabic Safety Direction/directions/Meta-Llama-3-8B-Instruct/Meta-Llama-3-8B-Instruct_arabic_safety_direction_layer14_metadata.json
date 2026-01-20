@@ -1,0 +1,25 @@
+{
+  "model_name": "Meta-Llama-3-8B-Instruct",
+  "model_path": "/home/zbibm/Safety-Arabic/models/Meta-Llama-3-8B-Instruct",
+  "n_layers": 32,
+  "d_model": 4096,
+  "best_layer": 14,
+  "direction_shape": [
+    4096
+  ],
+  "timestamp": "20260120_035226",
+  "validation": {
+    "n_safe": 128,
+    "n_unsafe": 128,
+    "auc_roc": 0.9905,
+    "accuracy": 0.9609,
+    "threshold": 0.857
+  },
+  "arasafe": {
+    "n_safe": 10823,
+    "n_unsafe": 1254,
+    "auc_roc": 0.9542,
+    "accuracy": 0.9579,
+    "threshold": 2.4686
+  }
+}
