@@ -20,6 +20,9 @@
     "n_unsafe": 1254,
     "auc_roc": 0.9542,
     "accuracy": 0.9579,
-    "threshold": 2.4686
+    "threshold": 2.4686,
+    "accuracy_fixed": 0.6928,
+    "accuracy_oracle": 0.9535,
+    "threshold_validation": 0.857
   }
 }

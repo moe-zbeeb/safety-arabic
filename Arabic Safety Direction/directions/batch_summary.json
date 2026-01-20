@@ -15,7 +15,9 @@
       },
       "arasafe": {
         "auc_roc": 0.922,
-        "accuracy": 0.9323
+        "accuracy": 0.9323,
+        "accuracy_fixed": 0.6791,
+        "accuracy_oracle": 0.9323
       }
     },
     {
@@ -29,7 +31,9 @@
       },
       "arasafe": {
         "auc_roc": 0.9542,
-        "accuracy": 0.9579
+        "accuracy": 0.9579,
+        "accuracy_fixed": 0.6928,
+        "accuracy_oracle": 0.9535
       }
     },
     {
@@ -43,7 +47,9 @@
       },
       "arasafe": {
         "auc_roc": 0.9407,
-        "accuracy": 0.9507
+        "accuracy": 0.9507,
+        "accuracy_fixed": 0.6281,
+        "accuracy_oracle": 0.9506
       }
     },
     {
@@ -57,7 +63,9 @@
       },
       "arasafe": {
         "auc_roc": 0.9574,
-        "accuracy": 0.966
+        "accuracy": 0.966,
+        "accuracy_fixed": 0.7421,
+        "accuracy_oracle": 0.9662
       }
     },
     {
@@ -71,7 +79,9 @@
       },
       "arasafe": {
         "auc_roc": 0.9572,
-        "accuracy": 0.9641
+        "accuracy": 0.9641,
+        "accuracy_fixed": 0.7069,
+        "accuracy_oracle": 0.9641
       }
     }
   ]

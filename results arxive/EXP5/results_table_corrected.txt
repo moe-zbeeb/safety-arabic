@@ -1,0 +1,17 @@
+========================================================================================================================
+ARABIC SAFETY DIRECTION - CORRECTED RESULTS (Using Validation Threshold)
+========================================================================================================================
+
+Model                          │ Layer │  Val AUC │  Val Acc │ AraSafe AUC │ Acc (Fixed) │ Acc (Oracle)
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Fanar-1-9B                     │    26 │   0.9864 │   0.9531 │      0.9220 │      0.6791 │       0.9323
+Meta-Llama-3-8B-Instruct       │    14 │   0.9905 │   0.9609 │      0.9491 │      0.6928 │       0.9535
+Qwen2.5-3B-Instruct            │    23 │   0.9854 │   0.9688 │      0.9404 │      0.6281 │       0.9506
+Qwen2.5-7B-Instruct            │    20 │   0.9896 │   0.9766 │      0.9575 │      0.7421 │       0.9662
+allam                          │    23 │   0.9899 │   0.9727 │      0.9572 │      0.7069 │       0.9641
+========================================================================================================================
+
+Notes:
+  - Acc (Fixed): Accuracy using threshold selected on validation set (honest metric)
+  - Acc (Oracle): Best possible accuracy with optimal threshold on AraSafe (overfitted)
+  - AUC scores are threshold-independent and remain unchanged
