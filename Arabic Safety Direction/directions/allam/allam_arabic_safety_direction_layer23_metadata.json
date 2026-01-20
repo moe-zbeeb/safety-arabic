@@ -1,0 +1,25 @@
+{
+  "model_name": "allam",
+  "model_path": "/home/zbibm/Safety-Arabic/models/allam",
+  "n_layers": 32,
+  "d_model": 4096,
+  "best_layer": 23,
+  "direction_shape": [
+    4096
+  ],
+  "timestamp": "20260120_221953",
+  "validation": {
+    "n_safe": 128,
+    "n_unsafe": 128,
+    "auc_roc": 0.9899,
+    "accuracy": 0.9727,
+    "threshold": 3.2327
+  },
+  "arasafe": {
+    "n_safe": 10823,
+    "n_unsafe": 1254,
+    "auc_roc": 0.9572,
+    "accuracy": 0.9641,
+    "threshold": 8.9547
+  }
+}
