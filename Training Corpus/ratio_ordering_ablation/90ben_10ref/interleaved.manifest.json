@@ -1,0 +1,16 @@
+{
+  "ratio": "90ben_10ref",
+  "ordering": "interleaved",
+  "source_file": "curriculumLearningTrainingCorpus/hala_9000_ref_1000.jsonl",
+  "dataset_file": "ratio_ordering_ablation/90ben_10ref/interleaved.jsonl",
+  "project_shuffle_seed": 20260409,
+  "total_rows": 10000,
+  "beneficial_count": 9000,
+  "refusal_count": 1000,
+  "class_runs": 2001,
+  "first_beneficial_index": 0,
+  "first_refusal_index": 5,
+  "last_beneficial_index": 9999,
+  "last_refusal_index": 9995,
+  "dataset_sha256": "3e0bc41673b574fc2d3ac6748a8b88b8be4c0d9119bdf4548b11767b4ad54db4"
+}
