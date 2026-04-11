@@ -28,7 +28,7 @@ import pandas as pd
 from openai import OpenAI
 from tqdm.auto import tqdm
 
-OPENROUTER_API_KEY = "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" # Replace with your actual API key
+OPENROUTER_API_KEY = "API-KEY" # Replace with your actual API key
 MODEL_NAME = "openai/gpt-4o-mini"
 
 INPUT_CSV_PATH = "/content/Arabic boundary-set.csv"
