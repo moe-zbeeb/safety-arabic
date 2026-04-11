@@ -1,6 +1,6 @@
 # Arabic Boundary-Set
 
-This folder contains the Arabic boundary-set used for the Arabic boundary-set experiment, available in Modern Standard Arabic (MSA) and two dialectal variants: Egyptian (EGY) and Levantine (LEV).
+This folder contains the Arabic boundary-set used for the Arabic boundary-set experiment, available in Modern Standard Arabic (MSA) and two dialectal variants: Egyptian (EGY) and Levantine (LEV), and an Arabizi variant.
 
 The dataset is designed to evaluate safety behavior near the safe/unsafe boundary in Arabic. Its purpose is to test whether a model can avoid over-refusing safe prompts that contain risky vocabulary or sensitive contexts, while still refusing genuinely unsafe prompts phrased in similar language.
 
@@ -16,11 +16,12 @@ The intended evaluation setup is to report model behavior on:
 
 ## Files
 
-| File | Dialect | Description |
+| File | Variant | Description |
 |------|---------|-------------|
 | `Arabic boundary-set_MSA.json` | Modern Standard Arabic | Original boundary-set prompts |
 | `Arabic boundary-set_EGY.json` | Egyptian Arabic | Translated from MSA using [QCRI/AraDiCE-msa-to-egy](https://huggingface.co/QCRI/AraDiCE-msa-to-egy) |
 | `Arabic boundary-set_LEV.json` | Levantine Arabic | Translated from MSA using [QCRI/AraDiCE-msa-to-lev](https://huggingface.co/QCRI/AraDiCE-msa-to-lev) |
+| `Arabic boundary-set-ARABIZI.json` | Arabizi | Generated from the Arabic source prompts using `openai/gpt-4o-mini` via OpenRouter |
 
 ## Dialectal Translation
 
