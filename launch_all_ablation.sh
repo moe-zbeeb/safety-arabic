@@ -55,7 +55,7 @@ download_model() {
     if [ -n "${HF_TOKEN:-}" ]; then
         token_arg="--token ${HF_TOKEN}"
     fi
-    huggingface-cli download "$hf_id" --local-dir "$dest" $token_arg
+    hf download "$hf_id" --local-dir "$dest" $token_arg
 }
 
 if [ -n "$TEST_FLAG" ]; then
