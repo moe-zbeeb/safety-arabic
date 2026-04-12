@@ -13,7 +13,6 @@
 # Usage:
 #   ./launch_all_ablation.sh                   # full run
 #   ./launch_all_ablation.sh --test            # smoke test (5 training steps)
-#   NUM_GPUS=2 ./launch_all_ablation.sh        # override GPU count
 # ---------------------------------------------------------------------------
 set -euo pipefail
 
@@ -36,6 +35,28 @@ MODELS=(
     "Qwen2.5-3B-Instruct"
     "Qwen2.5-7B-Instruct"
 )
+
+declare -A MODEL_HF_IDS=(
+    ["allam"]="humain-ai/ALLaM-7B-Instruct-preview"
+    ["Fanar-1-9B"]="QCRI/Fanar-1-9B"
+    ["Meta-Llama-3-8B-Instruct"]="meta-llama/Meta-Llama-3-8B-Instruct"
+    ["Qwen2.5-3B-Instruct"]="Qwen/Qwen2.5-3B-Instruct"
+    ["Qwen2.5-7B-Instruct"]="Qwen/Qwen2.5-7B-Instruct"
+)
+GUARD_HF_ID="Qwen/Qwen3Guard-Gen-4B"
+
+download_model() {
+    local name="$1"
+    local hf_id="$2"
+    local dest="${BASE_DIR}/models/${name}"
+    mkdir -p "${BASE_DIR}/models"
+    echo "  Downloading ${name} from ${hf_id} ..."
+    local token_arg=""
+    if [ -n "${HF_TOKEN:-}" ]; then
+        token_arg="--token ${HF_TOKEN}"
+    fi
+    huggingface-cli download "$hf_id" --local-dir "$dest" $token_arg
+}
 
 if [ -n "$TEST_FLAG" ]; then
     MODE_LABEL="SMOKE TEST (5 training steps per run)"
@@ -80,8 +101,14 @@ for m in "${MODELS[@]}"; do
     if [ -d "${BASE_DIR}/models/${m}" ]; then
         echo "  ✓ models/${m}"
     else
-        echo "  ✗ models/${m}  NOT FOUND"
-        ALL_OK=false
+        echo "  ✗ models/${m}  NOT FOUND — downloading..."
+        download_model "$m" "${MODEL_HF_IDS[$m]}"
+        if [ -d "${BASE_DIR}/models/${m}" ]; then
+            echo "  ✓ models/${m}  downloaded"
+        else
+            echo "  ✗ models/${m}  download FAILED"
+            ALL_OK=false
+        fi
     fi
 done
 
@@ -99,8 +126,12 @@ echo "--- Pre-flight: guard model ---"
 if [ -d "${BASE_DIR}/models/Qwen3Guard-Gen-4B" ]; then
     echo "  ✓ models/Qwen3Guard-Gen-4B"
 else
-    echo "  ✗ models/Qwen3Guard-Gen-4B  NOT FOUND"
-    ALL_OK=false
+    echo "  ✗ models/Qwen3Guard-Gen-4B  NOT FOUND — downloading..."
+    download_model "Qwen3Guard-Gen-4B" "$GUARD_HF_ID"
+    if [ ! -d "${BASE_DIR}/models/Qwen3Guard-Gen-4B" ]; then
+        echo "  ✗ models/Qwen3Guard-Gen-4B  download FAILED"
+        ALL_OK=false
+    fi
 fi
 
 if [ "$ALL_OK" = false ]; then

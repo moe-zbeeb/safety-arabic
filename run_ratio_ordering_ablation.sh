@@ -114,8 +114,6 @@ code = code.replace('/home/zbibm/Safety-Arabic/models/Fanar-1-9B', model_path)
 code = code.replace('./output', output_dir)
 code = code.replace('./logs', output_dir + '/logs')
 code = code.replace('save_steps=50', 'save_steps=999999999')
-code = code.replace('def format_chat(example):', 'tokenizer.model_max_length = 512\n\ndef format_chat(example):')
-code = code.replace('per_device_train_batch_size=16', 'per_device_train_batch_size=4')
 if test_mode:
     code = code.replace('num_train_epochs=1', 'max_steps=5')
 with open(dst, 'w') as f:
@@ -127,7 +125,7 @@ with open(dst, 'w') as f:
         TRAIN_START=$(date +%s)
 
         set +eo pipefail
-        CUDA_VISIBLE_DEVICES=0 python3 "$TEMP_TRAIN" 2>&1 | tee -a "$LOG_FILE"
+        accelerate launch --num_processes ${NUM_GPUS} --mixed_precision fp16 "$TEMP_TRAIN" 2>&1 | tee -a "$LOG_FILE"
         TRAIN_EXIT=${PIPESTATUS[0]}
         set -eo pipefail
 
