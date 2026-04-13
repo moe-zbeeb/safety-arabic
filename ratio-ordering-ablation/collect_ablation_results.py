@@ -11,6 +11,7 @@ and produces:
 
 import json
 import csv
+import sys
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -38,8 +39,8 @@ CSV_FIELDS = [
 
 def main():
     if not RESULTS_DIR.exists():
-        print(f"No results directory at {RESULTS_DIR}")
-        return
+        print(f"ERROR: no results directory at {RESULTS_DIR}")
+        sys.exit(1)
 
     rows = []
 
@@ -59,6 +60,10 @@ def main():
         for key in CSV_FIELDS[3:]:
             row[key] = data.get(key, "")
         rows.append(row)
+
+    if not rows:
+        print("ERROR: no summary JSON files found under {RESULTS_DIR}")
+        sys.exit(1)
 
     rows.sort(key=lambda r: (r["model"], r["ratio"], r["ordering"]))
 

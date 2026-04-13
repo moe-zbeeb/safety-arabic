@@ -29,14 +29,15 @@ if [ -z "$MODEL" ]; then
     exit 1
 fi
 
-BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
-MODELS_DIR="${BASE_DIR}/models"
-DATASETS_DIR="${BASE_DIR}/Training Corpus/ratio_ordering_ablation"
-OUTPUT_BASE="${BASE_DIR}/output_ratio_ordering_ablation"
-RESULTS_BASE="${BASE_DIR}/results_ratio_ordering_ablation"
-TRAIN_SCRIPT="${BASE_DIR}/Train/train.py"
-BENCHMARK_SCRIPT="${BASE_DIR}/benchmarking-scripts/benchmark_safety.py"
-LOG_DIR="${BASE_DIR}/logs_ratio_ordering_ablation"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+MODELS_DIR="${REPO_ROOT}/models"
+DATASETS_DIR="${REPO_ROOT}/Training Corpus/ratio_ordering_ablation"
+OUTPUT_BASE="${SCRIPT_DIR}/output_ratio_ordering_ablation"
+RESULTS_BASE="${SCRIPT_DIR}/results_ratio_ordering_ablation"
+TRAIN_SCRIPT="${REPO_ROOT}/Train/train.py"
+BENCHMARK_SCRIPT="${REPO_ROOT}/benchmarking-scripts/benchmark_safety.py"
+LOG_DIR="${SCRIPT_DIR}/logs_ratio_ordering_ablation"
 NUM_GPUS="${NUM_GPUS:-4}"
 
 MODEL_PATH="${MODELS_DIR}/${MODEL}"
@@ -98,7 +99,7 @@ for RATIO in "${RATIOS[@]}"; do
         mkdir -p "$RESULTS_DIR"
 
         # ---- Generate patched training script ----
-        TEMP_TRAIN=$(mktemp "${BASE_DIR}/.train_ablation_XXXXXX.py")
+        TEMP_TRAIN=$(mktemp "${SCRIPT_DIR}/.train_ablation_XXXXXX.py")
         trap "rm -f '$TEMP_TRAIN'" EXIT
 
         python3 -c "
@@ -114,6 +115,8 @@ code = code.replace('/home/zbibm/Safety-Arabic/models/Fanar-1-9B', model_path)
 code = code.replace('./output', output_dir)
 code = code.replace('./logs', output_dir + '/logs')
 code = code.replace('save_steps=50', 'save_steps=999999999')
+code = code.replace('per_device_train_batch_size=16', 'per_device_train_batch_size=4')
+code = code.replace('report_to=["tensorboard"]', 'report_to=["tensorboard"],\n    max_seq_length=512')
 if test_mode:
     code = code.replace('num_train_epochs=1', 'max_steps=5')
 with open(dst, 'w') as f:
@@ -149,7 +152,7 @@ with open(dst, 'w') as f:
         log "  EVAL START   (AraSafe benchmark)"
         EVAL_START=$(date +%s)
 
-        cd "$BASE_DIR"
+        cd "$REPO_ROOT"
         set +eo pipefail
         CUDA_VISIBLE_DEVICES=0 python3 "$BENCHMARK_SCRIPT" "${RUN_OUTPUT}/final-model" 2>&1 | tee -a "$LOG_FILE"
         EVAL_EXIT=${PIPESTATUS[0]}
