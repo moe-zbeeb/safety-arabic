@@ -61,4 +61,7 @@ htmlcov/
 .mypy_cache/
 .dmypy.json
 dmypy.json
-.claude 
+.claude
+
+# Secrets
+.env
