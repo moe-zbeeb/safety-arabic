@@ -163,7 +163,7 @@ with open(dst, 'w') as f:
         log "  EVAL END     ${EVAL_SECS}s  exit=${EVAL_EXIT}"
 
         # ---- Save results ----
-        BENCH_OUTPUT="${BASE_DIR}/output/final-model_summary.json"
+        BENCH_OUTPUT="${REPO_ROOT}/output/final-model_summary.json"
         if [ -f "$BENCH_OUTPUT" ]; then
             mv "$BENCH_OUTPUT" "$RESULT_FILE"
             log "  RESULT: ${RESULT_FILE}"
