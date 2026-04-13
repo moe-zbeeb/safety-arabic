@@ -116,6 +116,7 @@ code = code.replace('./output', output_dir)
 code = code.replace('./logs', output_dir + '/logs')
 code = code.replace('save_steps=50', 'save_steps=999999999')
 code = code.replace('per_device_train_batch_size=16', 'per_device_train_batch_size=4')
+code = code.replace('report_to=["tensorboard"]', 'report_to=["tensorboard"],\n    max_seq_length=1024')
 if test_mode:
     code = code.replace('num_train_epochs=1', 'max_steps=5')
 with open(dst, 'w') as f:
