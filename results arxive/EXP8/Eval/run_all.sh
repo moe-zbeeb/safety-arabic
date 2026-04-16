@@ -1,19 +1,19 @@
+#!/bin/bash
+set -e  # stop on any error
+
 RUN=fanar-100refusals
-RUN_DIR=/workspace/output/$RUN
+CKPT_DIR=/workspace/output
+EVAL=/workspace/Eval/eval.py
 
-# evaluate base model first (step 0, optional)
-python /workspace/Eval/eval.py \
+# evaluate base model first (step 0)
+python "$EVAL" \
     --model /workspace/models/Fanar-1-9B \
-    --run-name ${RUN}__base
+    --run-name "${RUN}__base"
 
-# evaluate each checkpoint
-for ckpt in $RUN_DIR/checkpoint-*; do
-    python /workspace/Eval/eval.py \
+# evaluate each checkpoint (sorted numerically, not alphabetically)
+for ckpt in $(ls -d $CKPT_DIR/checkpoint-* | sort -V); do
+    echo "=== Evaluating $ckpt ==="
+    python "$EVAL" \
         --model "$ckpt" \
         --run-name "$RUN"
 done
-
-# evaluate final model
-python /workspace/Eval/eval.py \
-    --model $RUN_DIR/final-model \
-    --run-name ${RUN}__final
