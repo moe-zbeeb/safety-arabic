@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-3B-Instruct__90-10__checkpoint-40",
+  "total_prompts": 12077,
+  "refused_count": 1670,
+  "accepted_count": 10407,
+  "refusal_rate": 13.827937401672601,
+  "acceptance_rate": 86.1720625983274,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 854,
+  "unsafe_prompts_refused": 816,
+  "safe_refusal_rate": 7.8906033447288175,
+  "unsafe_refusal_rate": 65.07177033492823
+}

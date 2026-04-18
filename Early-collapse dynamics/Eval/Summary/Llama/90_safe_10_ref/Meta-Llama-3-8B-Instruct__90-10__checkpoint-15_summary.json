@@ -1,0 +1,16 @@
+{
+  "model": "Meta-Llama-3-8B-Instruct__90-10__checkpoint-15",
+  "total_prompts": 12077,
+  "refused_count": 2788,
+  "accepted_count": 9289,
+  "refusal_rate": 23.085203278960005,
+  "acceptance_rate": 76.91479672103999,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1703,
+  "unsafe_prompts_refused": 1085,
+  "safe_refusal_rate": 15.735008777603252,
+  "unsafe_refusal_rate": 86.52312599681021
+}

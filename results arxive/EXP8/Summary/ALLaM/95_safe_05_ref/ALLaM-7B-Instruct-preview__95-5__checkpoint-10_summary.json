@@ -1,0 +1,16 @@
+{
+  "model": "ALLaM-7B-Instruct-preview__95-5__checkpoint-10",
+  "total_prompts": 12077,
+  "refused_count": 1515,
+  "accepted_count": 10562,
+  "refusal_rate": 12.544506085948498,
+  "acceptance_rate": 87.4554939140515,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 576,
+  "unsafe_prompts_refused": 939,
+  "safe_refusal_rate": 5.321999445625058,
+  "unsafe_refusal_rate": 74.88038277511961
+}

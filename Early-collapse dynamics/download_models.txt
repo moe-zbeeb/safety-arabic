@@ -1,0 +1,64 @@
+DOWNLOAD MODELS
+===============
+
+1. Get HF token: https://huggingface.co/settings/tokens (Read role)
+
+2. Request access (click "Request access" on each page):
+   - https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct
+   - https://huggingface.co/ALLaM-AI/ALLaM-7B-Instruct-preview
+
+3. Login:
+hf auth login
+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
+
+4. Download:
+hf download Qwen/Qwen2.5-3B-Instruct --local-dir /workspace/models/Qwen2.5-3B-Instruct
+hf download Qwen/Qwen2.5-7B-Instruct --local-dir /workspace/models/Qwen2.5-7B-Instruct
+hf download meta-llama/Meta-Llama-3-8B-Instruct --local-dir /workspace/models/Meta-Llama-3-8B-Instruct
+hf download ALLaM-AI/ALLaM-7B-Instruct-preview --local-dir /workspace/models/ALLaM-7B-Instruct-preview
+
+hf download Qwen/Qwen3Guard-Gen-4B --local-dir /workspace/models/Qwen3Guard-Gen-4B
+
+5. Verify:
+   du -sh /workspace/models/*
+   df -h /workspace
+
+
+
+
+ CUDA_VISIBLE_DEVICES=0 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    python /workspace/run_worker.py \
+        --base-model /workspace/models/Qwen2.5-3B-Instruct \
+        --data-file /workspace/Data_train/90_safe_10_refusal.jsonl \
+        --mix-name 90-10 \
+        --per-device-batch 8 --grad-accum 4
+
+
+CUDA_VISIBLE_DEVICES=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    python /workspace/run_worker.py \
+        --base-model /workspace/models/Qwen2.5-7B-Instruct \
+        --data-file /workspace/Data_train/90_safe_10_refusal.jsonl \
+        --mix-name 90-10 \
+        --per-device-batch 4 --grad-accum 8
+
+ CUDA_VISIBLE_DEVICES=2 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    python /workspace/run_worker.py \
+        --base-model /workspace/models/Meta-Llama-3-8B-Instruct \
+        --data-file /workspace/Data_train/90_safe_10_refusal.jsonl \
+        --mix-name 90-10 \
+        --per-device-batch 4 --grad-accum 8
+
+ CUDA_VISIBLE_DEVICES=3 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    python /workspace/run_worker.py \
+        --base-model /workspace/models/ALLaM-7B-Instruct-preview \
+        --data-file /workspace/Data_train/90_safe_10_refusal.jsonl \
+        --mix-name 90-10 \
+        --per-device-batch 4 --grad-accum 8
+
+
+
+tail -f /workspace/pipeline_logs/gpu0__Qwen2.5-3B-Instruct__90-10.log
+tail -f /workspace/pipeline_logs/gpu1__Qwen2.5-7B-Instruct__90-10.log
+tail -f /workspace/pipeline_logs/gpu0__Meta-Llama-3-8B-Instruct__90-10__resume30.log
+tail -f /workspace/pipeline_logs/gpu3__ALLaM-7B-Instruct-preview__90-10.log
+
