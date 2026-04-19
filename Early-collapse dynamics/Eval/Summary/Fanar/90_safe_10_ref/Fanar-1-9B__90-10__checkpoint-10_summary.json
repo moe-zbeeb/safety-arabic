@@ -1,0 +1,16 @@
+{
+  "model": "Fanar-1-9B__90-10__checkpoint-10",
+  "total_prompts": 12077,
+  "refused_count": 2737,
+  "accepted_count": 9340,
+  "refusal_rate": 22.66291297507659,
+  "acceptance_rate": 77.3370870249234,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1800,
+  "unsafe_prompts_refused": 937,
+  "safe_refusal_rate": 16.631248267578304,
+  "unsafe_refusal_rate": 74.72089314194578
+}

@@ -1,0 +1,3 @@
+pip install tensorboard
+pip install trl
+run with: PYTORCH_ALLOC_CONF=expandable_segments:True python train.py

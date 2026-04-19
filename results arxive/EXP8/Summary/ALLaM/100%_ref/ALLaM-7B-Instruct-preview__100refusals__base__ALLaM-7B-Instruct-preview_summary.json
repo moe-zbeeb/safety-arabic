@@ -1,0 +1,16 @@
+{
+  "model": "ALLaM-7B-Instruct-preview__100refusals__base__ALLaM-7B-Instruct-preview",
+  "total_prompts": 12077,
+  "refused_count": 3169,
+  "accepted_count": 8908,
+  "refusal_rate": 26.23996025503022,
+  "acceptance_rate": 73.76003974496977,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 2091,
+  "unsafe_prompts_refused": 1078,
+  "safe_refusal_rate": 19.319966737503467,
+  "unsafe_refusal_rate": 85.96491228070175
+}
