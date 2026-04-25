@@ -1,0 +1,5 @@
+MHK-22/Qwen2.5-3B-SFT-safe
+MHK-22/ALLaM-7B-SFT-safe
+MHK-22/Qwen2.5-7B-SFT-safe
+MHK-22/Meta-Llama-3-8B-SFT-safe
+MHK-22/Fanar-1-9B-SFT-safe
