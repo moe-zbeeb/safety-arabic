@@ -1,0 +1,43 @@
+{
+  "dataset": "PKU-Alignment/BeaverTails",
+  "split": "330k_train",
+  "translation_model": "hammh0a/Hala-1.2B-EN-AR-Translator",
+  "output": "Training Corpus/beavertails_ar_10k_qa.jsonl",
+  "num_output_rows": 10000,
+  "num_source_rows": 166382,
+  "num_unique_selected_source_rows": 10000,
+  "seed": 20260428,
+  "source_category_counts": {
+    "animal_abuse": 3480,
+    "child_abuse": 1664,
+    "controversial_topics,politics": 9233,
+    "discrimination,stereotype,injustice": 24006,
+    "drug_abuse,weapons,banned_substance": 16724,
+    "financial_crime,property_crime,theft": 28769,
+    "hate_speech,offensive_language": 27127,
+    "misinformation_regarding_ethics,laws_and_safety": 3835,
+    "non_violent_unethical_behavior": 59992,
+    "privacy_violation": 14774,
+    "self_harm": 2024,
+    "sexually_explicit,adult_content": 6876,
+    "terrorism,organized_crime": 2457,
+    "violence,aiding_and_abetting,incitement": 79544
+  },
+  "output_category_counts": {
+    "animal_abuse": 715,
+    "child_abuse": 715,
+    "controversial_topics,politics": 715,
+    "discrimination,stereotype,injustice": 715,
+    "drug_abuse,weapons,banned_substance": 714,
+    "financial_crime,property_crime,theft": 714,
+    "hate_speech,offensive_language": 714,
+    "misinformation_regarding_ethics,laws_and_safety": 714,
+    "non_violent_unethical_behavior": 714,
+    "privacy_violation": 714,
+    "self_harm": 714,
+    "sexually_explicit,adult_content": 714,
+    "terrorism,organized_crime": 714,
+    "violence,aiding_and_abetting,incitement": 714
+  },
+  "with_replacement": false
+}
