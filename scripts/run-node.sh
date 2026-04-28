@@ -4,6 +4,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REMOTE="${NODE_REMOTE:-node}"
 REMOTE_DIR="${NODE_REMOTE_DIR:-Safety-Arabic}"
+CONTROL_DIR="${NODE_SSH_CONTROL_DIR:-${TMPDIR:-/tmp}/safety-arabic-ssh}"
+CONTROL_PERSIST="${NODE_SSH_CONTROL_PERSIST:-10m}"
+CONTROL_PATH="$CONTROL_DIR/%C"
 SKIP_SYNC=0
 
 usage() {
@@ -48,4 +51,5 @@ if [[ "$SKIP_SYNC" -eq 0 ]]; then
 fi
 
 REMOTE_DIR_Q="$(printf '%q' "$REMOTE_DIR")"
-ssh -t "$REMOTE" "cd $REMOTE_DIR_Q && $*"
+mkdir -p "$CONTROL_DIR"
+ssh -t -o ControlMaster=auto -o ControlPersist="$CONTROL_PERSIST" -o ControlPath="$CONTROL_PATH" "$REMOTE" "cd $REMOTE_DIR_Q && $*"

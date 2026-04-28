@@ -4,6 +4,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REMOTE="${NODE_REMOTE:-node}"
 REMOTE_DIR="${NODE_REMOTE_DIR:-Safety-Arabic}"
+CONTROL_DIR="${NODE_SSH_CONTROL_DIR:-${TMPDIR:-/tmp}/safety-arabic-ssh}"
+CONTROL_PERSIST="${NODE_SSH_CONTROL_PERSIST:-10m}"
+CONTROL_PATH="$CONTROL_DIR/%C"
 DRY_RUN=0
 DELETE=0
 
@@ -42,6 +45,8 @@ done
 
 REMOTE_DIR_Q="$(printf '%q' "$REMOTE_DIR")"
 ARGS=(-azP --human-readable --exclude-from "$ROOT/.rsyncignore")
+SSH_ARGS=(-o ControlMaster=auto -o ControlPersist="$CONTROL_PERSIST" -o ControlPath="$CONTROL_PATH")
+RSYNC_SSH="ssh -o ControlMaster=auto -o ControlPersist=$CONTROL_PERSIST -o ControlPath=$CONTROL_PATH"
 
 if [[ "$DRY_RUN" -eq 1 ]]; then
   ARGS+=(--dry-run)
@@ -51,5 +56,6 @@ if [[ "$DELETE" -eq 1 ]]; then
   ARGS+=(--delete)
 fi
 
-ssh "$REMOTE" "mkdir -p $REMOTE_DIR_Q"
-rsync "${ARGS[@]}" "$ROOT"/ "$REMOTE:$REMOTE_DIR/"
+mkdir -p "$CONTROL_DIR"
+ssh "${SSH_ARGS[@]}" "$REMOTE" "mkdir -p $REMOTE_DIR_Q"
+rsync "${ARGS[@]}" -e "$RSYNC_SSH" "$ROOT"/ "$REMOTE:$REMOTE_DIR/"
