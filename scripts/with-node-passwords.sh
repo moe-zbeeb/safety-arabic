@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PASSWORD_FILE="${NODE_PASSWORD_FILE:-$ROOT/.node-password}"
+
 usage() {
   printf '%s\n' "Usage: $0 -- <command>"
-  printf '%s\n' "Optional: NODE_JUMP_PASSWORD=... NODE_PASSWORD=..."
+  printf '%s\n' "Optional: NODE_SHARED_PASSWORD=... or .node-password"
 }
 
 if [[ $# -eq 0 || "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
@@ -25,6 +28,12 @@ if ! command -v expect >/dev/null 2>&1; then
   exit 1
 fi
 
+if [[ -z "${NODE_SHARED_PASSWORD:-}" && -f "$PASSWORD_FILE" ]]; then
+  chmod 600 "$PASSWORD_FILE" 2>/dev/null || true
+  IFS= read -r NODE_SHARED_PASSWORD < "$PASSWORD_FILE" || true
+  export NODE_SHARED_PASSWORD
+fi
+
 exec expect -f - "$@" <<'EXPECT'
 set timeout -1
 
@@ -37,16 +46,21 @@ proc secret {label} {
   return $expect_out(1,string)
 }
 
-if {[info exists env(NODE_JUMP_PASSWORD)] && $env(NODE_JUMP_PASSWORD) ne ""} {
-  set jump_password $env(NODE_JUMP_PASSWORD)
+if {[info exists env(NODE_SHARED_PASSWORD)] && $env(NODE_SHARED_PASSWORD) ne ""} {
+  set jump_password $env(NODE_SHARED_PASSWORD)
+  set node_password $env(NODE_SHARED_PASSWORD)
 } else {
-  set jump_password [secret "Jump host password: "]
-}
+  if {[info exists env(NODE_JUMP_PASSWORD)] && $env(NODE_JUMP_PASSWORD) ne ""} {
+    set jump_password $env(NODE_JUMP_PASSWORD)
+  } else {
+    set jump_password [secret "Jump host password: "]
+  }
 
-if {[info exists env(NODE_PASSWORD)] && $env(NODE_PASSWORD) ne ""} {
-  set node_password $env(NODE_PASSWORD)
-} else {
-  set node_password [secret "Node password: "]
+  if {[info exists env(NODE_PASSWORD)] && $env(NODE_PASSWORD) ne ""} {
+    set node_password $env(NODE_PASSWORD)
+  } else {
+    set node_password [secret "Node password: "]
+  }
 }
 
 spawn {*}$argv
