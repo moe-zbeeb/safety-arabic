@@ -1,0 +1,30 @@
+{
+  "dataset_name": "Beneficial DPO Dataset",
+  "repo_id": "zbeeb/beneficial-dpo-dataset",
+  "source_dataset": "multilingual/orca_dpo_pairs",
+  "num_rows": 10000,
+  "seed": 20260428,
+  "split": "train",
+  "source_split_counts": {
+    "ar_train": 1429,
+    "de_train": 1429,
+    "es_train": 1429,
+    "fr_train": 1429,
+    "ru_train": 1428,
+    "tr_train": 1428,
+    "zh_train": 1428
+  },
+  "columns": [
+    "mllm_index",
+    "system",
+    "question",
+    "chosen",
+    "rejected",
+    "id",
+    "source_dataset",
+    "source_split",
+    "language",
+    "prompt"
+  ],
+  "license": "apache-2.0"
+}
