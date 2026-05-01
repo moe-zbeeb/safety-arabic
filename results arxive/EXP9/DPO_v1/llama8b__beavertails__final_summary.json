@@ -1,0 +1,16 @@
+{
+  "model": "llama8b__beavertails__final",
+  "total_prompts": 12077,
+  "refused_count": 3670,
+  "accepted_count": 8407,
+  "refusal_rate": 30.388341475532005,
+  "acceptance_rate": 69.611658524468,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 2515,
+  "unsafe_prompts_refused": 1155,
+  "safe_refusal_rate": 23.237549662755246,
+  "unsafe_refusal_rate": 92.10526315789474
+}

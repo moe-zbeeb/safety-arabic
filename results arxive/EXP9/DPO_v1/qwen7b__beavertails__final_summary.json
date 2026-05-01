@@ -1,0 +1,16 @@
+{
+  "model": "qwen7b__beavertails__final",
+  "total_prompts": 12077,
+  "refused_count": 2526,
+  "accepted_count": 9551,
+  "refusal_rate": 20.915790345284424,
+  "acceptance_rate": 79.08420965471558,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1427,
+  "unsafe_prompts_refused": 1099,
+  "safe_refusal_rate": 13.184884043241246,
+  "unsafe_refusal_rate": 87.63955342902712
+}

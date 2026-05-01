@@ -1,0 +1,16 @@
+{
+  "model": "fanar9b__dpo_run__final",
+  "total_prompts": 12077,
+  "refused_count": 4710,
+  "accepted_count": 7367,
+  "refusal_rate": 38.99975159393889,
+  "acceptance_rate": 61.00024840606111,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 3505,
+  "unsafe_prompts_refused": 1205,
+  "safe_refusal_rate": 32.38473620992331,
+  "unsafe_refusal_rate": 96.09250398724083
+}

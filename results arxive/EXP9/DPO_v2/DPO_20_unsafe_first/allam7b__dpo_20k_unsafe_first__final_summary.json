@@ -1,0 +1,16 @@
+{
+  "model": "allam7b__dpo_20k_unsafe__final",
+  "total_prompts": 12077,
+  "refused_count": 2469,
+  "accepted_count": 9608,
+  "refusal_rate": 20.443818829179435,
+  "acceptance_rate": 79.55618117082057,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1409,
+  "unsafe_prompts_refused": 1060,
+  "safe_refusal_rate": 13.018571560565462,
+  "unsafe_refusal_rate": 84.52950558213716
+}
