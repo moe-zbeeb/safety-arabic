@@ -4,7 +4,7 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-/workspace/Safety-Arabic}"
 MANIFEST="${MANIFEST:-$REPO_ROOT/Inference-time-safety/exp7_base_sft_guard_manifest.txt}"
 OUTPUT_DIR="${OUTPUT_DIR:-$REPO_ROOT/output/exp7_base_sft_guard}"
-GUARD_MODEL="${GUARD_MODEL:-$REPO_ROOT/models/Qwen3Guard-Gen-4B}"
+GUARD_MODEL="${GUARD_MODEL:-Qwen/Qwen3Guard-Gen-4B}"
 NUM_GPUS="${NUM_GPUS:-2}"
 
 if [[ ! -f "$MANIFEST" ]]; then

@@ -172,17 +172,36 @@ run_one_job() {
     echo "[GPU ${gpu_id} · ${job_idx}/${TOTAL}] finished ${run_name}"
 }
 
+PIDS=()
+PID_GPUS=()
 for ((gpu=0; gpu<NUM_GPUS; gpu++)); do
     (
         for ((j=gpu; j<TOTAL; j+=NUM_GPUS)); do
             run_one_job ${gpu} $((j+1)) "${JOBS[$j]}"
         done
     ) &
+    PIDS+=("$!")
+    PID_GPUS+=("${gpu}")
 done
 
-wait
+FAILURES=0
+for idx in "${!PIDS[@]}"; do
+    pid="${PIDS[$idx]}"
+    gpu="${PID_GPUS[$idx]}"
+    if ! wait "$pid"; then
+        echo "[run_grid] ERROR: worker for GPU ${gpu} failed. Inspect logs in $OUTPUT_DIR"
+        FAILURES=$((FAILURES + 1))
+    fi
+done
+
+if [[ "$FAILURES" -gt 0 ]]; then
+    echo ""
+    echo "[run_grid] FAILED: ${FAILURES} worker(s) exited with errors."
+    echo "[run_grid] Inspect per-job logs in $OUTPUT_DIR before trusting any results."
+    exit 1
+fi
 
 echo ""
-echo "[run_grid] All ${TOTAL} job(s) finished. Summaries in $OUTPUT_DIR"
+echo "[run_grid] All ${TOTAL} job(s) finished successfully. Summaries in $OUTPUT_DIR"
 echo "[run_grid] Per-job logs: ls $OUTPUT_DIR/*.log"
 echo "[run_grid] Next: aggregate with python Inference-time-safety/aggregate_exp10.py --exp-dir <dir>"
