@@ -1,0 +1,16 @@
+{
+  "model": "llama8b__dpo_20k_unsafe__final",
+  "total_prompts": 12077,
+  "refused_count": 9220,
+  "accepted_count": 2857,
+  "refusal_rate": 76.34346278049185,
+  "acceptance_rate": 23.656537219508156,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 8100,
+  "unsafe_prompts_refused": 1120,
+  "safe_refusal_rate": 74.84061720410237,
+  "unsafe_refusal_rate": 89.31419457735247
+}

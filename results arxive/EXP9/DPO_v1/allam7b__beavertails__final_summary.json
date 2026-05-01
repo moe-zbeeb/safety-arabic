@@ -1,0 +1,16 @@
+{
+  "model": "allam7b__beavertails__final",
+  "total_prompts": 12077,
+  "refused_count": 2978,
+  "accepted_count": 9099,
+  "refusal_rate": 24.65844166597665,
+  "acceptance_rate": 75.34155833402335,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1862,
+  "unsafe_prompts_refused": 1116,
+  "safe_refusal_rate": 17.20410237457267,
+  "unsafe_refusal_rate": 88.99521531100478
+}

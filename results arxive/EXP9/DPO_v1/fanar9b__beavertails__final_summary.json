@@ -1,0 +1,16 @@
+{
+  "model": "fanar9b__beavertails__final",
+  "total_prompts": 12077,
+  "refused_count": 4029,
+  "accepted_count": 8048,
+  "refusal_rate": 33.36093400678977,
+  "acceptance_rate": 66.63906599321024,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 2846,
+  "unsafe_prompts_refused": 1183,
+  "safe_refusal_rate": 26.295851427515476,
+  "unsafe_refusal_rate": 94.33811802232854
+}

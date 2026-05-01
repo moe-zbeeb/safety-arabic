@@ -1,0 +1,16 @@
+{
+  "model": "Qwen3b__dpo_run__final",
+  "total_prompts": 12077,
+  "refused_count": 3005,
+  "accepted_count": 9072,
+  "refusal_rate": 24.88200712097375,
+  "acceptance_rate": 75.11799287902625,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1927,
+  "unsafe_prompts_refused": 1078,
+  "safe_refusal_rate": 17.804675228679663,
+  "unsafe_refusal_rate": 85.96491228070175
+}
