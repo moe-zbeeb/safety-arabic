@@ -1,0 +1,18 @@
+# Experiment 7 / base+guard and SFT+guard only
+# Format:
+# short_name|variant_name|/absolute/path/to/model/or/HF-repo-id|modes
+#
+# Keep `modes` as `response` for this experiment.
+# Base-model IDs below are taken from the repo's existing model family names.
+# Replace each MHK-22 placeholder with the exact SFT repo from your HF collection.
+
+allam_base|base|tiiuae/ALLaM-7B-Instruct-preview|response
+allam_sft|sft|MHK-22/ALLaM-7B-SFT-safe|response
+fanar_base|base|riotu-lab/Fanar-1-9B-Instruct|response
+fanar_sft|sft|MHK-22/Fanar-1-9B-SFT-safe|response
+llama_base|base|meta-llama/Meta-Llama-3-8B-Instruct|response
+llama_sft|sft|MHK-22/Meta-Llama-3-8B-SFT-safe|response
+qwen3b_base|base|Qwen/Qwen2.5-3B-Instruct|response
+qwen3b_sft|sft|MHK-22/Qwen2.5-3B-SFT-safe|response
+qwen7b_base|base|Qwen/Qwen2.5-7B-Instruct|response
+qwen7b_sft|sft|MHK-22/Qwen2.5-7B-SFT-safe|response
