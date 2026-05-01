@@ -160,25 +160,33 @@ run_one_job() {
     local log_file="$OUTPUT_DIR/${run_name}.log"
     echo "[GPU ${gpu_id} · ${job_idx}/${TOTAL}] starting ${run_name}"
 
-    CUDA_VISIBLE_DEVICES=${gpu_id} python "$SCRIPT" \
+    if CUDA_VISIBLE_DEVICES=${gpu_id} python "$SCRIPT" \
         --base-model "$model_path" \
         --guard-model "$GUARD_MODEL" \
         --mode "$mode" \
         --dataset "$DATASET" \
         --output-dir "$OUTPUT_DIR" \
         --run-name "$run_name" \
-        > "$log_file" 2>&1
+        > "$log_file" 2>&1; then
+        echo "[GPU ${gpu_id} · ${job_idx}/${TOTAL}] finished ${run_name}"
+        return 0
+    fi
 
-    echo "[GPU ${gpu_id} · ${job_idx}/${TOTAL}] finished ${run_name}"
+    echo "[GPU ${gpu_id} · ${job_idx}/${TOTAL}] FAILED ${run_name} (see $log_file)"
+    return 1
 }
 
 PIDS=()
 PID_GPUS=()
 for ((gpu=0; gpu<NUM_GPUS; gpu++)); do
     (
+        failures=0
         for ((j=gpu; j<TOTAL; j+=NUM_GPUS)); do
-            run_one_job ${gpu} $((j+1)) "${JOBS[$j]}"
+            if ! run_one_job ${gpu} $((j+1)) "${JOBS[$j]}"; then
+                failures=$((failures + 1))
+            fi
         done
+        exit "$failures"
     ) &
     PIDS+=("$!")
     PID_GPUS+=("${gpu}")
