@@ -1,6 +1,6 @@
 # Inference-time safety
 
-This folder evaluates AraSafe with an external Qwen3Guard interception layer.
+This folder evaluates AraSafe with an external guard interception layer.
 
 The original version of this repo framed the sweep as a fixed `EXP10` grid:
 
@@ -19,7 +19,8 @@ run narrower experiments such as:
 ## Files
 
 - `eval_guarded.py` — evaluator. Reuses `DPO/Eval/eval.py` for generation + judging,
-  then inserts guard interception before the final judge pass.
+  then inserts guard interception before the final judge pass. The guard and
+  judge can be different models.
 - `run_grid.sh` — configurable multi-GPU launcher.
 - `aggregate_exp10.py` — recursive summary aggregator for both the original
   archive layout and custom flat output folders.
@@ -115,7 +116,10 @@ For the 5-model family experiment where each family has exactly two guarded runs
 use these files directly:
 
 - `exp7_base_sft_guard_manifest.txt` — 10 guarded jobs (5 base + 5 SFT)
-- `run_base_sft_guard_experiment.sh` — wrapper that forces `response` mode and disables unguarded reruns
+- `run_base_sft_guard_experiment.sh` — wrapper that forces `response` mode,
+  disables unguarded reruns, uses `meta-llama/Llama-Guard-3-8B` as the
+  response-time guard by default, and `Qwen/Qwen3Guard-Gen-4B` as the final
+  judge by default
 
 Workflow:
 

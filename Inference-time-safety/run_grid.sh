@@ -3,6 +3,7 @@ set -euo pipefail
 
 REPO_ROOT="${REPO_ROOT:-/home/zbibm/Safety-Arabic}"
 GUARD_MODEL="${GUARD_MODEL:-$REPO_ROOT/models/Qwen3Guard-Gen-4B}"
+JUDGE_MODEL="${JUDGE_MODEL:-Qwen/Qwen3Guard-Gen-4B}"
 DATASET="${DATASET:-$REPO_ROOT/Arasafe/arasafe_human.jsonl}"
 OUTPUT_DIR="${OUTPUT_DIR:-$REPO_ROOT/output/EXP10_runs}"
 SCRIPT="${SCRIPT:-$REPO_ROOT/Inference-time-safety/eval_guarded.py}"
@@ -67,7 +68,7 @@ build_entries() {
             echo "[run_grid] ERROR: setups file not found: $SETUPS_FILE"
             exit 1
         fi
-        while IFS='|' read -r short variant model_path mode_csv; do
+        while IFS='|' read -r short variant model_path mode_csv tokenizer_path; do
             short=${short:-}
             short=${short// /}
             [[ -z "$short" ]] && continue
@@ -76,9 +77,10 @@ build_entries() {
             variant=$(echo "${variant:-}" | xargs)
             model_path=$(echo "${model_path:-}" | xargs)
             mode_csv=$(echo "${mode_csv:-}" | xargs)
+            tokenizer_path=$(echo "${tokenizer_path:-}" | xargs)
 
             if [[ -z "$variant" || -z "$model_path" ]]; then
-                echo "[run_grid] WARNING: skipping malformed line in $SETUPS_FILE: $short|${variant:-}|${model_path:-}|${mode_csv:-}"
+                echo "[run_grid] WARNING: skipping malformed line in $SETUPS_FILE: $short|${variant:-}|${model_path:-}|${mode_csv:-}|${tokenizer_path:-}"
                 continue
             fi
 
@@ -91,7 +93,7 @@ build_entries() {
             for mode in "${modes[@]}"; do
                 mode=${mode// /}
                 [[ -z "$mode" ]] && continue
-                echo "$short|$variant|$mode|$model_path"
+                echo "$short|$variant|$mode|$model_path|$tokenizer_path"
             done
         done < "$SETUPS_FILE"
         return
@@ -101,7 +103,7 @@ build_entries() {
         IFS='|' read -r short variant model_path <<< "$entry"
         mapfile -t modes < <(default_modes_for_variant "$variant")
         for mode in "${modes[@]}"; do
-            echo "$short|$variant|$mode|$model_path"
+            echo "$short|$variant|$mode|$model_path|"
         done
     done
 }
@@ -109,7 +111,7 @@ build_entries() {
 JOBS=()
 while IFS= read -r job; do
     [[ -z "$job" ]] && continue
-    IFS='|' read -r short variant mode model_path <<< "$job"
+    IFS='|' read -r short variant mode model_path tokenizer_path <<< "$job"
     if [[ -e "$model_path" ]]; then
         JOBS+=("$job")
         continue
@@ -134,6 +136,7 @@ echo "Inference-time safety grid"
 echo "  GPUs:              $NUM_GPUS"
 echo "  total jobs:        $TOTAL"
 echo "  guard:             $GUARD_MODEL"
+echo "  judge:             $JUDGE_MODEL"
 echo "  dataset:           $DATASET"
 echo "  output_dir:        $OUTPUT_DIR"
 echo "  script:            $SCRIPT"
@@ -148,7 +151,7 @@ run_one_job() {
     local job_idx=$2
     local job_str=$3
 
-    IFS='|' read -r short variant mode model_path <<< "$job_str"
+    IFS='|' read -r short variant mode model_path tokenizer_path <<< "$job_str"
 
     local run_name
     if [[ "$mode" == "none" ]]; then
@@ -160,9 +163,16 @@ run_one_job() {
     local log_file="$OUTPUT_DIR/${run_name}.log"
     echo "[GPU ${gpu_id} · ${job_idx}/${TOTAL}] starting ${run_name}"
 
+    local tokenizer_args=()
+    if [[ -n "$tokenizer_path" ]]; then
+        tokenizer_args=(--tokenizer-model "$tokenizer_path")
+    fi
+
     if CUDA_VISIBLE_DEVICES=${gpu_id} python "$SCRIPT" \
         --base-model "$model_path" \
+        "${tokenizer_args[@]}" \
         --guard-model "$GUARD_MODEL" \
+        --judge-model "$JUDGE_MODEL" \
         --mode "$mode" \
         --dataset "$DATASET" \
         --output-dir "$OUTPUT_DIR" \

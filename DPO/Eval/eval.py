@@ -76,15 +76,21 @@ def free_llm(llm):
     torch.cuda.synchronize()
 
 
-def generate_responses(model_path, prompts, gpu_mem_util, max_new_tokens):
+def generate_responses(model_path, prompts, gpu_mem_util, max_new_tokens, tokenizer_path=None):
     print(f"[eval] Loading target model: {model_path}")
+    if tokenizer_path:
+        print(f"[eval] Using tokenizer override: {tokenizer_path}")
     llm = LLM(
         model=model_path,
+        tokenizer=tokenizer_path or model_path,
         trust_remote_code=True,
         dtype="auto",
         gpu_memory_utilization=gpu_mem_util,
     )
-    tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        tokenizer_path or model_path,
+        trust_remote_code=True,
+    )
 
     # temperature=0 is greedy; top_p=1.0 explicitly avoids version-dependent edge cases.
     sampling_params = SamplingParams(
