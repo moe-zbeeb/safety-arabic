@@ -1,10 +1,8 @@
-# Experiment 7 / base+guard and SFT+guard only
+# Guarded base/SFT sweep
 # Format:
 # short_name|variant_name|/absolute/path/to/model/or/HF-repo-id|modes|optional_tokenizer_override
 #
-# Keep `modes` as `response` for this experiment.
-# Base-model IDs below are taken from the repo's existing model family names.
-# Replace each MHK-22 placeholder with the exact SFT repo from your HF collection.
+# Keep `modes` as `response` for this sweep.
 
 allam_base|base|humain-ai/ALLaM-7B-Instruct-preview|response|
 allam_sft|sft|MHK-22/ALLaM-7B-SFT-safe|response|humain-ai/ALLaM-7B-Instruct-preview

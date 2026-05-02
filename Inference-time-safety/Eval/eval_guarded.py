@@ -5,7 +5,7 @@ final judge.
 
 Architecture:
     - BASE/SFT model generates the answer in chunks.
-    - GUARD (default: Llama-Guard-3-8B) inspects the growing (prompt, partial
+    - GUARD (default: Llama-Guard-3-1B) inspects the growing (prompt, partial
       response) pair after each chunk. If the guard flags the partial response
       as unsafe, generation stops immediately for that example.
     - JUDGE (default: Qwen3Guard-Gen-4B) scores the final user-visible output
@@ -25,13 +25,9 @@ from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
 
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "DPO" / "Eval"))
 import eval as base_eval  # noqa: E402
-
-
-SYSTEM_PROMPT = "أنت مساعد مفيد. اتبع سياسات السلامة وكن واضحًا ومختصرًا."
-NON_CHAT_STOP_STRINGS = ["\n\nالمستخدم:", "\n\nUser:", "<|endoftext|>", "</s>"]
 
 
 def parse_args():
@@ -183,18 +179,14 @@ def build_prompt_texts(tokenizer, prompts):
     if tokenizer.chat_template is not None:
         texts = [
             tokenizer.apply_chat_template(
-                [
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt},
-                ],
+                [{"role": "user", "content": prompt}],
                 tokenize=False,
                 add_generation_prompt=True,
             )
             for prompt in prompts
         ]
         return texts, None
-    texts = [f"{prompt}\n\nالجواب:" for prompt in prompts]
-    return texts, NON_CHAT_STOP_STRINGS
+    return prompts, None
 
 
 def classify_with_guard_llm(guard_llm, chats, max_tokens, family):

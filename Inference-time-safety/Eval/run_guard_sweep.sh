@@ -1,19 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 
-REPO_ROOT="${REPO_ROOT:-/home/zbibm/Safety-Arabic}"
-GUARD_MODEL="${GUARD_MODEL:-$REPO_ROOT/models/Qwen3Guard-Gen-4B}"
+REPO_ROOT="${REPO_ROOT:-/workspace/Safety-Arabic}"
+GUARD_MODEL="${GUARD_MODEL:-meta-llama/Llama-Guard-3-1B}"
 JUDGE_MODEL="${JUDGE_MODEL:-Qwen/Qwen3Guard-Gen-4B}"
 DATASET="${DATASET:-$REPO_ROOT/Arasafe/arasafe_human.jsonl}"
 OUTPUT_DIR="${OUTPUT_DIR:-$REPO_ROOT/output/EXP10_runs}"
-SCRIPT="${SCRIPT:-$REPO_ROOT/Inference-time-safety/eval_guarded.py}"
+SCRIPT="${SCRIPT:-$REPO_ROOT/Inference-time-safety/Eval/eval_guarded.py}"
 SETUPS_FILE="${SETUPS_FILE:-}"
 GUARD_MODES="${GUARD_MODES:-prompt,response,both}"
 INCLUDE_UNGUARDED="${INCLUDE_UNGUARDED:-aligned}"
 
 NUM_GPUS="${NUM_GPUS:-$(nvidia-smi --list-gpus 2>/dev/null | wc -l)}"
 if [[ "$NUM_GPUS" -lt 1 ]]; then
-    echo "[run_grid] ERROR: no GPUs detected (set NUM_GPUS=N to override)."
+    echo "[run_guard_sweep] ERROR: no GPUs detected (set NUM_GPUS=N to override)."
     exit 1
 fi
 
@@ -65,7 +65,7 @@ default_modes_for_variant() {
 build_entries() {
     if [[ -n "$SETUPS_FILE" ]]; then
         if [[ ! -f "$SETUPS_FILE" ]]; then
-            echo "[run_grid] ERROR: setups file not found: $SETUPS_FILE"
+            echo "[run_guard_sweep] ERROR: setups file not found: $SETUPS_FILE"
             exit 1
         fi
         while IFS='|' read -r short variant model_path mode_csv tokenizer_path; do
@@ -80,7 +80,7 @@ build_entries() {
             tokenizer_path=$(echo "${tokenizer_path:-}" | xargs)
 
             if [[ -z "$variant" || -z "$model_path" ]]; then
-                echo "[run_grid] WARNING: skipping malformed line in $SETUPS_FILE: $short|${variant:-}|${model_path:-}|${mode_csv:-}|${tokenizer_path:-}"
+                echo "[run_guard_sweep] WARNING: skipping malformed line in $SETUPS_FILE: $short|${variant:-}|${model_path:-}|${mode_csv:-}|${tokenizer_path:-}"
                 continue
             fi
 
@@ -117,22 +117,22 @@ while IFS= read -r job; do
         continue
     fi
     if is_hf_model_ref "$model_path"; then
-        echo "[run_grid] using Hugging Face model ref for ${short} ${variant} ${mode}: $model_path"
+        echo "[run_guard_sweep] using Hugging Face model ref for ${short} ${variant} ${mode}: $model_path"
         JOBS+=("$job")
         continue
     fi
-    echo "[run_grid] skip ${short} ${variant} ${mode} (path missing): $model_path"
+    echo "[run_guard_sweep] skip ${short} ${variant} ${mode} (path missing): $model_path"
     continue
 done < <(build_entries)
 
 TOTAL=${#JOBS[@]}
 if [[ "$TOTAL" -eq 0 ]]; then
-    echo "[run_grid] ERROR: no runnable jobs were found."
+    echo "[run_guard_sweep] ERROR: no runnable jobs were found."
     exit 1
 fi
 
 echo "=================================================================="
-echo "Inference-time safety grid"
+echo "Inference-time safety guarded sweep"
 echo "  GPUs:              $NUM_GPUS"
 echo "  total jobs:        $TOTAL"
 echo "  guard:             $GUARD_MODEL"
@@ -216,19 +216,19 @@ for idx in "${!PIDS[@]}"; do
     pid="${PIDS[$idx]}"
     gpu="${PID_GPUS[$idx]}"
     if ! wait "$pid"; then
-        echo "[run_grid] ERROR: worker for GPU ${gpu} failed. Inspect logs in $OUTPUT_DIR"
+        echo "[run_guard_sweep] ERROR: worker for GPU ${gpu} failed. Inspect logs in $OUTPUT_DIR"
         FAILURES=$((FAILURES + 1))
     fi
 done
 
 if [[ "$FAILURES" -gt 0 ]]; then
     echo ""
-    echo "[run_grid] FAILED: ${FAILURES} worker(s) exited with errors."
-    echo "[run_grid] Inspect per-job logs in $OUTPUT_DIR before trusting any results."
+    echo "[run_guard_sweep] FAILED: ${FAILURES} worker(s) exited with errors."
+    echo "[run_guard_sweep] Inspect per-job logs in $OUTPUT_DIR before trusting any results."
     exit 1
 fi
 
 echo ""
-echo "[run_grid] All ${TOTAL} job(s) finished successfully. Summaries in $OUTPUT_DIR"
-echo "[run_grid] Per-job logs: ls $OUTPUT_DIR/*.log"
-echo "[run_grid] Next: aggregate with python Inference-time-safety/aggregate_exp10.py --exp-dir <dir>"
+echo "[run_guard_sweep] All ${TOTAL} job(s) finished successfully. Summaries in $OUTPUT_DIR"
+echo "[run_guard_sweep] Per-job logs: ls $OUTPUT_DIR/*.log"
+echo "[run_guard_sweep] Next: build the 4-setup table with python Inference-time-safety/build_four_setup_comparison.py --exp-dir <dir>"

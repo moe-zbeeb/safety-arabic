@@ -13,7 +13,7 @@ The main benchmark is AraSafe, and the final refusal judgment is done by
 
 ## What the current evaluator does
 
-[`eval_guarded.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/eval_guarded.py)
+[`Eval/eval_guarded.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/eval_guarded.py)
 implements the current runtime-guard setup:
 
 - the base or SFT model generates the answer in chunks
@@ -27,12 +27,11 @@ experiment.
 
 ## Files
 
-- [`eval_guarded.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/eval_guarded.py) — guarded evaluator
-- [`run_grid.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/run_grid.sh) — multi-GPU launcher
-- [`run_base_sft_guard_experiment.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/run_base_sft_guard_experiment.sh) — wrapper for the 5 base + 5 SFT guarded sweep
-- [`exp7_base_sft_guard_manifest.txt`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/exp7_base_sft_guard_manifest.txt) — manifest for the guarded base/SFT runs
-- [`example_setups_response_only.txt`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/example_setups_response_only.txt) — example custom manifest
-- [`aggregate_exp10.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/aggregate_exp10.py) — summary aggregator
+- [`Eval/eval_guarded.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/eval_guarded.py) — guarded evaluator
+- [`Eval/run_guard_sweep.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/run_guard_sweep.sh) — multi-GPU launcher for guarded sweeps
+- [`Eval/run_exp10_base_sft_guard.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/run_exp10_base_sft_guard.sh) — wrapper for the standard 5 base + 5 SFT guarded sweep
+- [`Eval/base_sft_guard_manifest.txt`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/base_sft_guard_manifest.txt) — manifest for the guarded base/SFT runs
+- [`build_four_setup_comparison.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/build_four_setup_comparison.py) — builds the base / base+guard / SFT / hybrid comparison table
 
 ## Manifest format
 
@@ -63,18 +62,25 @@ The current guarded sweep is:
 - 5 base models + external guard
 - 5 SFT models + external guard
 
-The wrapper defaults to:
+The generic launcher defaults to:
 
 - guard: `meta-llama/Llama-Guard-3-1B`
 - judge: `Qwen/Qwen3Guard-Gen-4B`
 - mode: `response`
+
+The two shell scripts have different roles:
+
+- [`Eval/run_guard_sweep.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/run_guard_sweep.sh)
+  is the generic guarded launcher.
+- [`Eval/run_exp10_base_sft_guard.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/run_exp10_base_sft_guard.sh)
+  is the fixed wrapper for the standard 5-base + 5-SFT experiment.
 
 Run it with:
 
 ```bash
 NUM_GPUS=2 \
 OUTPUT_DIR=/workspace/Safety-Arabic/results\ arxive/EXP10 \
-bash Inference-time-safety/run_base_sft_guard_experiment.sh
+bash Inference-time-safety/Eval/run_exp10_base_sft_guard.sh
 ```
 
 You can override the defaults:
@@ -85,24 +91,27 @@ MANIFEST=/tmp/custom_manifest.txt \
 GUARD_MODEL=/workspace/Safety-Arabic/models/Llama-Guard-3-1B \
 JUDGE_MODEL=Qwen/Qwen3Guard-Gen-4B \
 OUTPUT_DIR=/workspace/Safety-Arabic/results\ arxive/EXP10 \
-bash Inference-time-safety/run_base_sft_guard_experiment.sh
+bash Inference-time-safety/Eval/run_exp10_base_sft_guard.sh
 ```
 
 ## Custom runs
 
-To run a smaller custom experiment, create a manifest and call
-[`run_grid.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/run_grid.sh)
+To run a smaller custom experiment, create your own manifest and call
+[`Eval/run_guard_sweep.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/Eval/run_guard_sweep.sh)
 directly:
 
-```bash
-cp Inference-time-safety/example_setups_response_only.txt /tmp/response_only_setups.txt
-# edit /tmp/response_only_setups.txt
+```text
+short_name|variant_name|model_path_or_hf_id|modes|optional_tokenizer_override
+```
 
-SETUPS_FILE=/tmp/response_only_setups.txt \
+Then run:
+
+```bash
+SETUPS_FILE=/tmp/custom_manifest.txt \
 GUARD_MODES=response \
 INCLUDE_UNGUARDED=all \
 OUTPUT_DIR=/workspace/Safety-Arabic/output/response_only_guard_runs \
-bash Inference-time-safety/run_grid.sh
+bash Inference-time-safety/Eval/run_guard_sweep.sh
 ```
 
 ## Outputs
@@ -121,19 +130,19 @@ Typical summary fields include:
 - `stopped_early_count`
 - `parse_failure_rate`
 
-## Aggregation
+## Four-setup comparison
 
-Aggregate an experiment directory with:
+Build the 4-column comparison table with:
 
 ```bash
-python Inference-time-safety/aggregate_exp10.py \
+python Inference-time-safety/build_four_setup_comparison.py \
   --exp-dir "/workspace/Safety-Arabic/results arxive/EXP10"
 ```
 
 This writes:
 
-- `grid_summary.csv`
-- `results_table.md`
+- `four_setup_comparison.csv`
+- `four_setup_comparison.md`
 
 ## Practical interpretation
 
@@ -144,5 +153,5 @@ This folder is used to support the comparison:
 3. SFT only
 4. SFT + external guard
 
-The guarded runs here provide rows 2 and 4. The unguarded base and SFT results
-come from the matching evaluation pipeline outside this folder.
+The guarded runs here provide rows 2 and 4. The script combines them with the
+project's base-only and SFT-only reference values to produce the final table.
