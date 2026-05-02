@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO_ROOT="${REPO_ROOT:-/workspace/Safety-Arabic}"
-MANIFEST="${MANIFEST:-$REPO_ROOT/Inference-time-safety/Eval/base_sft_guard_manifest.txt}"
+MANIFEST="${MANIFEST:-$REPO_ROOT/Guarded-response-eval/Eval/base_sft_guard_manifest.txt}"
 OUTPUT_DIR="${OUTPUT_DIR:-$REPO_ROOT/output/base_sft_guard_sweep}"
 GUARD_MODEL="${GUARD_MODEL:-meta-llama/Llama-Guard-3-1B}"
 JUDGE_MODEL="${JUDGE_MODEL:-Qwen/Qwen3Guard-Gen-4B}"
@@ -22,4 +22,4 @@ export GUARD_MODEL
 export JUDGE_MODEL
 export NUM_GPUS
 
-bash "$REPO_ROOT/Inference-time-safety/Eval/run_guard_sweep.sh"
+bash "$REPO_ROOT/Guarded-response-eval/Eval/run_guard_sweep.sh"
