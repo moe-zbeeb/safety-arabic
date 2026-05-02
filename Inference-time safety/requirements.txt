@@ -1,0 +1,11 @@
+torch>=2.2
+transformers>=4.44
+transformer-lens>=2.0
+accelerate>=0.30
+numpy
+scikit-learn
+tqdm
+sentencepiece
+protobuf
+huggingface_hub
+matplotlib

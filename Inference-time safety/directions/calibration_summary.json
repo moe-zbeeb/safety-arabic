@@ -1,0 +1,252 @@
+[
+  {
+    "model_name": "Qwen2.5-3B-Instruct",
+    "auc_at_best_layer": 0.9984283447265625,
+    "calibration_argmax_layer": 20,
+    "calibration_argmax_auc": 0.9985809326171875,
+    "best_layer_auc": 0.9984283447265625,
+    "thresholds": {
+      "FPR<=0.01": {
+        "rule": "FPR<=0.01",
+        "fpr_target": 0.01,
+        "tau": 8.93455696105957,
+        "empirical_fpr": 0.01171875,
+        "tpr": 0.9765625,
+        "fnr": 0.0234375,
+        "accuracy": 0.982421875,
+        "f1": 0.9823182711198428
+      },
+      "FPR<=0.05": {
+        "rule": "FPR<=0.05",
+        "fpr_target": 0.05,
+        "tau": 6.65995979309082,
+        "empirical_fpr": 0.05078125,
+        "tpr": 0.9921875,
+        "fnr": 0.0078125,
+        "accuracy": 0.970703125,
+        "f1": 0.97131931166348
+      },
+      "FPR<=0.10": {
+        "rule": "FPR<=0.10",
+        "fpr_target": 0.1,
+        "tau": 5.463408470153809,
+        "empirical_fpr": 0.1015625,
+        "tpr": 0.99609375,
+        "fnr": 0.00390625,
+        "accuracy": 0.947265625,
+        "f1": 0.9497206703910615
+      },
+      "Youden_J": {
+        "rule": "Youden_J",
+        "fpr_target": null,
+        "tau": 8.986320495605469,
+        "empirical_fpr": 0.01171875,
+        "tpr": 0.9765625,
+        "fnr": 0.0234375,
+        "accuracy": 0.98046875,
+        "f1": 0.9803149606299213
+      }
+    },
+    "elapsed_seconds": 100.0
+  },
+  {
+    "model_name": "Qwen2.5-7B-Instruct",
+    "auc_at_best_layer": 0.989349365234375,
+    "calibration_argmax_layer": 15,
+    "calibration_argmax_auc": 0.999237060546875,
+    "best_layer_auc": 0.989349365234375,
+    "thresholds": {
+      "FPR<=0.01": {
+        "rule": "FPR<=0.01",
+        "fpr_target": 0.01,
+        "tau": 12.083988189697266,
+        "empirical_fpr": 0.01171875,
+        "tpr": 0.921875,
+        "fnr": 0.078125,
+        "accuracy": 0.955078125,
+        "f1": 0.9535353535353536
+      },
+      "FPR<=0.05": {
+        "rule": "FPR<=0.05",
+        "fpr_target": 0.05,
+        "tau": 7.465768337249756,
+        "empirical_fpr": 0.05078125,
+        "tpr": 0.94140625,
+        "fnr": 0.05859375,
+        "accuracy": 0.9453125,
+        "f1": 0.9450980392156862
+      },
+      "FPR<=0.10": {
+        "rule": "FPR<=0.10",
+        "fpr_target": 0.1,
+        "tau": 3.8840653896331787,
+        "empirical_fpr": 0.1015625,
+        "tpr": 0.96875,
+        "fnr": 0.03125,
+        "accuracy": 0.93359375,
+        "f1": 0.9358490566037736
+      },
+      "Youden_J": {
+        "rule": "Youden_J",
+        "fpr_target": null,
+        "tau": 13.750776290893555,
+        "empirical_fpr": 0.00390625,
+        "tpr": 0.921875,
+        "fnr": 0.078125,
+        "accuracy": 0.95703125,
+        "f1": 0.9552845528455285
+      }
+    },
+    "elapsed_seconds": 158.2
+  },
+  {
+    "model_name": "Meta-Llama-3-8B-Instruct",
+    "auc_at_best_layer": 0.999176025390625,
+    "calibration_argmax_layer": 13,
+    "calibration_argmax_auc": 0.9993133544921875,
+    "best_layer_auc": 0.999176025390625,
+    "thresholds": {
+      "FPR<=0.01": {
+        "rule": "FPR<=0.01",
+        "fpr_target": 0.01,
+        "tau": 0.1844920814037323,
+        "empirical_fpr": 0.01171875,
+        "tpr": 0.97265625,
+        "fnr": 0.02734375,
+        "accuracy": 0.98046875,
+        "f1": 0.9803149606299213
+      },
+      "FPR<=0.05": {
+        "rule": "FPR<=0.05",
+        "fpr_target": 0.05,
+        "tau": -0.12435250729322433,
+        "empirical_fpr": 0.05078125,
+        "tpr": 0.99609375,
+        "fnr": 0.00390625,
+        "accuracy": 0.97265625,
+        "f1": 0.9732824427480916
+      },
+      "FPR<=0.10": {
+        "rule": "FPR<=0.10",
+        "fpr_target": 0.1,
+        "tau": -0.32318365573883057,
+        "empirical_fpr": 0.1015625,
+        "tpr": 1.0,
+        "fnr": 0.0,
+        "accuracy": 0.94921875,
+        "f1": 0.9516728624535316
+      },
+      "Youden_J": {
+        "rule": "Youden_J",
+        "fpr_target": null,
+        "tau": 0.13767987489700317,
+        "empirical_fpr": 0.015625,
+        "tpr": 0.98828125,
+        "fnr": 0.01171875,
+        "accuracy": 0.984375,
+        "f1": 0.984375
+      }
+    },
+    "elapsed_seconds": 160.7
+  },
+  {
+    "model_name": "Fanar-1-9B",
+    "auc_at_best_layer": 0.9927825927734375,
+    "calibration_argmax_layer": 34,
+    "calibration_argmax_auc": 0.9944610595703125,
+    "best_layer_auc": 0.9927825927734375,
+    "thresholds": {
+      "FPR<=0.01": {
+        "rule": "FPR<=0.01",
+        "fpr_target": 0.01,
+        "tau": 57.391990661621094,
+        "empirical_fpr": 0.01171875,
+        "tpr": 0.890625,
+        "fnr": 0.109375,
+        "accuracy": 0.939453125,
+        "f1": 0.9363449691991786
+      },
+      "FPR<=0.05": {
+        "rule": "FPR<=0.05",
+        "fpr_target": 0.05,
+        "tau": 44.228397369384766,
+        "empirical_fpr": 0.05078125,
+        "tpr": 0.9609375,
+        "fnr": 0.0390625,
+        "accuracy": 0.955078125,
+        "f1": 0.9553398058252427
+      },
+      "FPR<=0.10": {
+        "rule": "FPR<=0.10",
+        "fpr_target": 0.1,
+        "tau": 26.347332000732422,
+        "empirical_fpr": 0.1015625,
+        "tpr": 0.98828125,
+        "fnr": 0.01171875,
+        "accuracy": 0.943359375,
+        "f1": 0.9457943925233645
+      },
+      "Youden_J": {
+        "rule": "Youden_J",
+        "fpr_target": null,
+        "tau": 33.81066131591797,
+        "empirical_fpr": 0.06640625,
+        "tpr": 0.984375,
+        "fnr": 0.015625,
+        "accuracy": 0.95703125,
+        "f1": 0.9580152671755725
+      }
+    },
+    "elapsed_seconds": 74.3
+  },
+  {
+    "model_name": "allam",
+    "auc_at_best_layer": 0.9970550537109375,
+    "calibration_argmax_layer": 20,
+    "calibration_argmax_auc": 0.9994659423828125,
+    "best_layer_auc": 0.9970550537109375,
+    "thresholds": {
+      "FPR<=0.01": {
+        "rule": "FPR<=0.01",
+        "fpr_target": 0.01,
+        "tau": 1.7156920433044434,
+        "empirical_fpr": 0.01171875,
+        "tpr": 0.96875,
+        "fnr": 0.03125,
+        "accuracy": 0.978515625,
+        "f1": 0.9783037475345168
+      },
+      "FPR<=0.05": {
+        "rule": "FPR<=0.05",
+        "fpr_target": 0.05,
+        "tau": 1.0189487934112549,
+        "empirical_fpr": 0.05078125,
+        "tpr": 0.984375,
+        "fnr": 0.015625,
+        "accuracy": 0.966796875,
+        "f1": 0.9673704414587332
+      },
+      "FPR<=0.10": {
+        "rule": "FPR<=0.10",
+        "fpr_target": 0.1,
+        "tau": 0.5440564751625061,
+        "empirical_fpr": 0.1015625,
+        "tpr": 0.98828125,
+        "fnr": 0.01171875,
+        "accuracy": 0.943359375,
+        "f1": 0.9457943925233645
+      },
+      "Youden_J": {
+        "rule": "Youden_J",
+        "fpr_target": null,
+        "tau": 1.8308134078979492,
+        "empirical_fpr": 0.00390625,
+        "tpr": 0.96875,
+        "fnr": 0.03125,
+        "accuracy": 0.98046875,
+        "f1": 0.9801587301587301
+      }
+    },
+    "elapsed_seconds": 62.2
+  }
+]
