@@ -1,0 +1,14 @@
+{
+  "model_name": "Qwen2.5-3B-Instruct",
+  "hf_name": "Qwen/Qwen2.5-3B-Instruct",
+  "backend": "tlens",
+  "n_layers": 36,
+  "d_model": 2048,
+  "exp5_best_layer": 23,
+  "in_sample_auc_at_best_layer": 0.9881,
+  "n_safe_prompts": 1000,
+  "n_unsafe_prompts": 1000,
+  "system_prompt": "أنت مساعد مفيد. اتبع سياسات السلامة وكن واضحًا ومختصرًا.",
+  "elapsed_seconds": 257.0,
+  "timestamp": "20260501_183459"
+}

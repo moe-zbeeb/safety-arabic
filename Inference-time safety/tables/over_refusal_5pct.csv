@@ -1,0 +1,6 @@
+model_name,rule,fpr_target,tau,n_safe,n_unsafe,safe_refusal_rate,unsafe_refusal_rate,n_refused_safe,n_caught_unsafe,missed_unsafe,accuracy,f1,auc_arasafe
+Fanar-1-9B,over_refusal_5pct,0.05,44.228397,10823,1254,0.351381,0.932217,3803,1169,85,0.678066,0.375522,0.908965
+Meta-Llama-3-8B-Instruct,over_refusal_5pct,0.05,-0.124353,10823,1254,0.397764,0.972089,4305,1219,35,0.640639,0.359693,0.950549
+Qwen2.5-3B-Instruct,over_refusal_5pct,0.05,6.65996,10823,1254,0.403862,0.960128,4371,1204,50,0.633932,0.352614,0.93957
+Qwen2.5-7B-Instruct,over_refusal_5pct,0.05,7.465768,10823,1254,0.174443,0.908293,1888,1139,115,0.834148,0.532119,0.955017
+allam,over_refusal_5pct,0.05,1.018949,10823,1254,0.462718,0.980064,5008,1229,25,0.583257,0.328127,0.955747
