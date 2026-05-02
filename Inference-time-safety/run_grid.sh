@@ -161,6 +161,10 @@ run_one_job() {
     fi
 
     local log_file="$OUTPUT_DIR/${run_name}.log"
+    local cache_root="${OUTPUT_DIR}/.runtime_cache/${run_name}"
+    local xdg_cache_home="${cache_root}/xdg"
+    local torchinductor_cache_dir="${cache_root}/torchinductor"
+    local triton_cache_dir="${cache_root}/triton"
     echo "[GPU ${gpu_id} · ${job_idx}/${TOTAL}] starting ${run_name}"
 
     local tokenizer_args=()
@@ -168,7 +172,12 @@ run_one_job() {
         tokenizer_args=(--tokenizer-model "$tokenizer_path")
     fi
 
-    if CUDA_VISIBLE_DEVICES=${gpu_id} python "$SCRIPT" \
+    mkdir -p "$xdg_cache_home" "$torchinductor_cache_dir" "$triton_cache_dir"
+
+    if XDG_CACHE_HOME="$xdg_cache_home" \
+        TORCHINDUCTOR_CACHE_DIR="$torchinductor_cache_dir" \
+        TRITON_CACHE_DIR="$triton_cache_dir" \
+        CUDA_VISIBLE_DEVICES=${gpu_id} python "$SCRIPT" \
         --base-model "$model_path" \
         "${tokenizer_args[@]}" \
         --guard-model "$GUARD_MODEL" \
