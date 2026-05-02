@@ -1,87 +1,133 @@
 # Inference-time safety
 
-This folder evaluates AraSafe with an external guard interception layer.
+This folder contains the inference-time safety evaluation pipeline used for the
+`EXP10` comparison:
 
-The original version of this repo framed the sweep as a fixed `EXP10` grid:
+- base model only
+- base model + external guard
+- SFT-aligned model only
+- hybrid: SFT-aligned model + external guard
 
-- 5 base models
-- 5 aligned checkpoints
-- 3 guarded modes (`prompt`, `response`, `both`)
+The main benchmark is AraSafe, and the final refusal judgment is done by
+`Qwen/Qwen3Guard-Gen-4B`.
 
-That is still supported, but the launcher is now configurable so you can also
-run narrower experiments such as:
+## What the current evaluator does
 
-- response-only guarding
-- base + SFT checkpoints
-- arbitrary subsets of models
-- unguarded + guarded paired runs for the same setup
+[`eval_guarded.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/eval_guarded.py)
+implements the current runtime-guard setup:
+
+- the base or SFT model generates the answer in chunks
+- the external guard inspects the growing response during generation
+- if the guard flags the response as unsafe, generation stops early
+- no canned refusal text is injected
+- the final visible output is then judged by `Qwen/Qwen3Guard-Gen-4B`
+
+This is a runtime stopping experiment, not a post-hoc response replacement
+experiment.
 
 ## Files
 
-- `eval_guarded.py` — evaluator. Reuses `DPO/Eval/eval.py` for generation + judging,
-  then inserts guard interception before the final judge pass. The guard and
-  judge can be different models.
-- `run_grid.sh` — configurable multi-GPU launcher.
-- `aggregate_exp10.py` — recursive summary aggregator for both the original
-  archive layout and custom flat output folders.
-- `canned_refusal_ar.txt` — fixed Arabic refusal string substituted on guard intervention.
-- `example_setups_response_only.txt` — template for response-only runs over custom checkpoints.
+- [`eval_guarded.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/eval_guarded.py) — guarded evaluator
+- [`run_grid.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/run_grid.sh) — multi-GPU launcher
+- [`run_base_sft_guard_experiment.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/run_base_sft_guard_experiment.sh) — wrapper for the 5 base + 5 SFT guarded sweep
+- [`exp7_base_sft_guard_manifest.txt`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/exp7_base_sft_guard_manifest.txt) — manifest for the guarded base/SFT runs
+- [`example_setups_response_only.txt`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/example_setups_response_only.txt) — example custom manifest
+- [`aggregate_exp10.py`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/aggregate_exp10.py) — summary aggregator
 
-## Launcher behavior
+## Manifest format
 
-If you run `run_grid.sh` without extra configuration, it preserves the legacy
-matrix based on the five base models and five aligned checkpoints.
-
-You can override that with:
-
-- `SETUPS_FILE` — custom setup manifest.
-- setup entries may use either local model directories or Hugging Face repo IDs such as `MHK-22/<model-name>`.
-- `GUARD_MODES` — comma-separated guard modes, e.g. `response` or `prompt,response`.
-- `INCLUDE_UNGUARDED` — `none`, `all`, or a comma-separated list of variants that
-  should also run in unguarded mode.
-
-Each setup-file line uses this format:
+Each manifest line uses:
 
 ```text
-short_name|variant_name|/absolute/path/to/model/or/HF-repo-id|comma,separated,modes
+short_name|variant_name|model_path_or_hf_id|modes|optional_tokenizer_override
+```
+
+Examples:
+
+```text
+allam_base|base|humain-ai/ALLaM-7B-Instruct-preview|response|
+allam_sft|sft|MHK-22/ALLaM-7B-SFT-safe|response|humain-ai/ALLaM-7B-Instruct-preview
 ```
 
 Notes:
 
-- Lines starting with `#` are ignored.
-- If the modes column is omitted or empty, the launcher falls back to
-  `GUARD_MODES` plus `INCLUDE_UNGUARDED`.
-- `none` means unguarded evaluation.
-- Run names become:
-  - `short__variant` for unguarded runs
-  - `short__variant_guard_response` for guarded runs
+- `modes` is usually `response` for the current experiment
+- the tokenizer column is optional
+- the tokenizer override is useful for SFT checkpoints that should reuse the
+  base model tokenizer
 
-## Example: response-only base + SFT sweep
+## Main guarded sweep
 
-If your experiment is basically “run the base model and a set of SFT checkpoints,
-then compare unguarded vs response-guarded”, create a manifest from the example
-file and point it to your actual checkpoint paths:
+The current guarded sweep is:
 
-```bash
-cp Inference-time-safety/example_setups_response_only.txt /tmp/exp7_setups.txt
-# edit the paths or Hugging Face repo IDs in /tmp/exp7_setups.txt
+- 5 base models + external guard
+- 5 SFT models + external guard
 
-SETUPS_FILE=/tmp/exp7_setups.txt GUARD_MODES=response INCLUDE_UNGUARDED=all OUTPUT_DIR=/home/zbibm/Safety-Arabic/output/exp7_response_only bash Inference-time-safety/run_grid.sh
-```
+The wrapper defaults to:
 
-That gives you paired `none` and `response` runs for every listed setup.
-If you only want guarded runs, set:
+- guard: `meta-llama/Llama-Guard-3-1B`
+- judge: `Qwen/Qwen3Guard-Gen-4B`
+- mode: `response`
+
+Run it with:
 
 ```bash
-INCLUDE_UNGUARDED=none
+NUM_GPUS=2 \
+OUTPUT_DIR=/workspace/Safety-Arabic/results\ arxive/EXP10 \
+bash Inference-time-safety/run_base_sft_guard_experiment.sh
 ```
+
+You can override the defaults:
+
+```bash
+NUM_GPUS=2 \
+MANIFEST=/tmp/custom_manifest.txt \
+GUARD_MODEL=/workspace/Safety-Arabic/models/Llama-Guard-3-1B \
+JUDGE_MODEL=Qwen/Qwen3Guard-Gen-4B \
+OUTPUT_DIR=/workspace/Safety-Arabic/results\ arxive/EXP10 \
+bash Inference-time-safety/run_base_sft_guard_experiment.sh
+```
+
+## Custom runs
+
+To run a smaller custom experiment, create a manifest and call
+[`run_grid.sh`](/Users/ranaezzeddine/Desktop/Safety-Arabic/Inference-time-safety/run_grid.sh)
+directly:
+
+```bash
+cp Inference-time-safety/example_setups_response_only.txt /tmp/response_only_setups.txt
+# edit /tmp/response_only_setups.txt
+
+SETUPS_FILE=/tmp/response_only_setups.txt \
+GUARD_MODES=response \
+INCLUDE_UNGUARDED=all \
+OUTPUT_DIR=/workspace/Safety-Arabic/output/response_only_guard_runs \
+bash Inference-time-safety/run_grid.sh
+```
+
+## Outputs
+
+Each run writes a summary JSON like:
+
+- `allam_base__base_guard_response_summary.json`
+- `allam_sft__sft_guard_response_summary.json`
+
+Typical summary fields include:
+
+- `safe_refusal_rate`
+- `unsafe_refusal_rate`
+- `refusal_rate`
+- `intervention_rate`
+- `stopped_early_count`
+- `parse_failure_rate`
 
 ## Aggregation
 
-Aggregate any output folder recursively:
+Aggregate an experiment directory with:
 
 ```bash
-python Inference-time-safety/aggregate_exp10.py   --exp-dir /home/zbibm/Safety-Arabic/output/exp7_response_only   --title "Experiment 7 — Response-only inference-time safety"
+python Inference-time-safety/aggregate_exp10.py \
+  --exp-dir "/workspace/Safety-Arabic/results arxive/EXP10"
 ```
 
 This writes:
@@ -89,50 +135,14 @@ This writes:
 - `grid_summary.csv`
 - `results_table.md`
 
-## Legacy EXP10 behavior
+## Practical interpretation
 
-The original fixed matrix still works out of the box:
+This folder is used to support the comparison:
 
-```bash
-bash Inference-time-safety/run_grid.sh
-```
+1. base only
+2. base + external guard
+3. SFT only
+4. SFT + external guard
 
-with default setup names:
-
-- `allam7b__base`
-- `allam7b__aligned`
-- `allam7b__base_guard_prompt`
-- `allam7b__aligned_guard_response`
-- etc.
-
-
-## Exact setup for your base+guard and SFT+guard experiment
-
-For the 5-model family experiment where each family has exactly two guarded runs:
-
-- `base + guard`
-- `SFT + guard`
-
-use these files directly:
-
-- `exp7_base_sft_guard_manifest.txt` — 10 guarded jobs (5 base + 5 SFT)
-- `run_base_sft_guard_experiment.sh` — wrapper that forces `response` mode,
-  disables unguarded reruns, uses `meta-llama/Llama-Guard-3-8B` as the
-  response-time guard by default, and `Qwen/Qwen3Guard-Gen-4B` as the final
-  judge by default
-
-Workflow:
-
-```bash
-# 1) Edit the SFT repo IDs in the manifest
-nano Inference-time-safety/exp7_base_sft_guard_manifest.txt
-
-# 2) Run the experiment on 2 GPUs
-NUM_GPUS=2 OUTPUT_DIR=/workspace/Safety-Arabic/output/exp7_base_sft_guard bash Inference-time-safety/run_base_sft_guard_experiment.sh
-```
-
-Aggregate after completion:
-
-```bash
-python Inference-time-safety/aggregate_exp10.py   --exp-dir /workspace/Safety-Arabic/output/exp7_base_sft_guard   --title "Experiment 7 — Base+guard and SFT+guard"
-```
+The guarded runs here provide rows 2 and 4. The unguarded base and SFT results
+come from the matching evaluation pipeline outside this folder.
