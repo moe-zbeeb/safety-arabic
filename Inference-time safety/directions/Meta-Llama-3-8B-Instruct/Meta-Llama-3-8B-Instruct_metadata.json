@@ -1,0 +1,14 @@
+{
+  "model_name": "Meta-Llama-3-8B-Instruct",
+  "hf_name": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "backend": "tlens",
+  "n_layers": 32,
+  "d_model": 4096,
+  "exp5_best_layer": 14,
+  "in_sample_auc_at_best_layer": 0.9912,
+  "n_safe_prompts": 1000,
+  "n_unsafe_prompts": 1000,
+  "system_prompt": "أنت مساعد مفيد. اتبع سياسات السلامة وكن واضحًا ومختصرًا.",
+  "elapsed_seconds": 400.8,
+  "timestamp": "20260501_184812"
+}
