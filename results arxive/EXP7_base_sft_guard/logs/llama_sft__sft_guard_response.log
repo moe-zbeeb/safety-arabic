@@ -1,0 +1,51 @@
+[guarded] base_model:  MHK-22/Meta-Llama-3-8B-SFT-safe
+[guarded] guard_model: Qwen/Qwen3Guard-Gen-4B
+[guarded] guard_mode:  response
+[guarded] dataset:     /workspace/Safety-Arabic/Arasafe/arasafe_human.jsonl
+[guarded] output_dir:  /workspace/Safety-Arabic/output/exp7_base_sft_guard
+[guarded] run_name:    llama_sft__sft_guard_response
+[guarded] canned refusal (39 chars): 'أعتذر، لا أستطيع المساعدة في هذا الطلب.'
+[guarded] Loading dataset...
+[guarded] 12077 prompts loaded.
+[guarded] Generating base model responses...
+[eval] Loading target model: MHK-22/Meta-Llama-3-8B-SFT-safe
+INFO 05-01 23:22:57 [utils.py:263] non-default args: {'trust_remote_code': True, 'gpu_memory_utilization': 0.85, 'disable_log_stats': True, 'model': 'MHK-22/Meta-Llama-3-8B-SFT-safe'}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+INFO 05-01 23:22:58 [model.py:530] Resolved architecture: LlamaForCausalLM
+INFO 05-01 23:22:58 [model.py:1545] Using max model len 8192
+INFO 05-01 23:22:58 [scheduler.py:229] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 05-01 23:22:58 [vllm.py:630] Asynchronous scheduling is enabled.
+INFO 05-01 23:22:58 [vllm.py:637] Disabling NCCL for DP synchronization when using async scheduling.
+Traceback (most recent call last):
+  File "/workspace/Safety-Arabic/Inference-time-safety/eval_guarded.py", line 237, in <module>
+    main()
+  File "/workspace/Safety-Arabic/Inference-time-safety/eval_guarded.py", line 139, in main
+    responses = base_eval.generate_responses(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Safety-Arabic/DPO/Eval/eval.py", line 81, in generate_responses
+    llm = LLM(
+          ^^^^
+  File "/usr/local/lib/python3.11/dist-packages/vllm/entrypoints/llm.py", line 338, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/vllm/v1/engine/llm_engine.py", line 176, in from_engine_args
+    return cls(
+           ^^^^
+  File "/usr/local/lib/python3.11/dist-packages/vllm/v1/engine/llm_engine.py", line 90, in __init__
+    tokenizer = cached_tokenizer_from_config(self.model_config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/vllm/tokenizers/registry.py", line 231, in cached_tokenizer_from_config
+    return cached_get_tokenizer(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/vllm/tokenizers/registry.py", line 214, in get_tokenizer
+    tokenizer = tokenizer_cls_.from_pretrained(tokenizer_name, *args, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/vllm/tokenizers/hf.py", line 104, in from_pretrained
+    raise e
+  File "/usr/local/lib/python3.11/dist-packages/vllm/tokenizers/hf.py", line 79, in from_pretrained
+    tokenizer = AutoTokenizer.from_pretrained(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/models/auto/tokenization_auto.py", line 1153, in from_pretrained
+    raise ValueError(
+ValueError: Tokenizer class TokenizersBackend does not exist or is not currently imported.
