@@ -1,0 +1,39 @@
+{
+  "title": "Arabic Safety SFT Models — Boundary Set Evaluation",
+  "notes": {
+    "safe_refusal_rate": "Lower is better — model avoids over-refusing safe prompts",
+    "unsafe_refusal_rate": "Higher is better — model correctly refuses harmful prompts"
+  },
+  "data": [
+    { "model": "ALLaM-7B-SFT-safe", "dialect": "ARABIZI", "safe_refusal_rate": 34.94, "unsafe_refusal_rate": 59.05 },
+    { "model": "ALLaM-7B-SFT-safe", "dialect": "EGY", "safe_refusal_rate": 22.96, "unsafe_refusal_rate": 88.57 },
+    { "model": "ALLaM-7B-SFT-safe", "dialect": "LEV", "safe_refusal_rate": 11.11, "unsafe_refusal_rate": 90.48 },
+    { "model": "ALLaM-7B-SFT-safe", "dialect": "MSA", "safe_refusal_rate": 6.30, "unsafe_refusal_rate": 93.33 },
+    { "model": "ALLaM-7B-SFT-safe", "dialect": "NOISY", "safe_refusal_rate": 18.15, "unsafe_refusal_rate": 86.67 },
+    { "model": "ALLaM-7B-SFT-safe", "dialect": "Safe Only", "safe_refusal_rate": 4.00, "unsafe_refusal_rate": null },
+    { "model": "Fanar-1-9B-SFT-safe", "dialect": "ARABIZI", "safe_refusal_rate": 20.82, "unsafe_refusal_rate": 73.33 },
+    { "model": "Fanar-1-9B-SFT-safe", "dialect": "EGY", "safe_refusal_rate": 41.48, "unsafe_refusal_rate": 100.00 },
+    { "model": "Fanar-1-9B-SFT-safe", "dialect": "LEV", "safe_refusal_rate": 24.81, "unsafe_refusal_rate": 100.00 },
+    { "model": "Fanar-1-9B-SFT-safe", "dialect": "MSA", "safe_refusal_rate": 11.11, "unsafe_refusal_rate": 100.00 },
+    { "model": "Fanar-1-9B-SFT-safe", "dialect": "NOISY", "safe_refusal_rate": 26.67, "unsafe_refusal_rate": 99.05 },
+    { "model": "Fanar-1-9B-SFT-safe", "dialect": "Safe Only", "safe_refusal_rate": 17.60, "unsafe_refusal_rate": null },
+    { "model": "Meta-Llama-3-8B-SFT-safe", "dialect": "ARABIZI", "safe_refusal_rate": 66.91, "unsafe_refusal_rate": 82.86 },
+    { "model": "Meta-Llama-3-8B-SFT-safe", "dialect": "EGY", "safe_refusal_rate": 42.96, "unsafe_refusal_rate": 91.43 },
+    { "model": "Meta-Llama-3-8B-SFT-safe", "dialect": "LEV", "safe_refusal_rate": 34.81, "unsafe_refusal_rate": 92.38 },
+    { "model": "Meta-Llama-3-8B-SFT-safe", "dialect": "MSA", "safe_refusal_rate": 21.11, "unsafe_refusal_rate": 93.33 },
+    { "model": "Meta-Llama-3-8B-SFT-safe", "dialect": "NOISY", "safe_refusal_rate": 38.89, "unsafe_refusal_rate": 90.95 },
+    { "model": "Meta-Llama-3-8B-SFT-safe", "dialect": "Safe Only", "safe_refusal_rate": 19.20, "unsafe_refusal_rate": null },
+    { "model": "Qwen2.5-3B-SFT-safe", "dialect": "ARABIZI", "safe_refusal_rate": 52.04, "unsafe_refusal_rate": 59.52 },
+    { "model": "Qwen2.5-3B-SFT-safe", "dialect": "EGY", "safe_refusal_rate": 40.74, "unsafe_refusal_rate": 90.00 },
+    { "model": "Qwen2.5-3B-SFT-safe", "dialect": "LEV", "safe_refusal_rate": 26.30, "unsafe_refusal_rate": 89.05 },
+    { "model": "Qwen2.5-3B-SFT-safe", "dialect": "MSA", "safe_refusal_rate": 18.89, "unsafe_refusal_rate": 89.52 },
+    { "model": "Qwen2.5-3B-SFT-safe", "dialect": "NOISY", "safe_refusal_rate": 35.19, "unsafe_refusal_rate": 89.05 },
+    { "model": "Qwen2.5-3B-SFT-safe", "dialect": "Safe Only", "safe_refusal_rate": 18.40, "unsafe_refusal_rate": null },
+    { "model": "Qwen2.5-7B-SFT-safe", "dialect": "ARABIZI", "safe_refusal_rate": 27.88, "unsafe_refusal_rate": 55.71 },
+    { "model": "Qwen2.5-7B-SFT-safe", "dialect": "EGY", "safe_refusal_rate": 23.33, "unsafe_refusal_rate": 89.05 },
+    { "model": "Qwen2.5-7B-SFT-safe", "dialect": "LEV", "safe_refusal_rate": 12.59, "unsafe_refusal_rate": 90.00 },
+    { "model": "Qwen2.5-7B-SFT-safe", "dialect": "MSA", "safe_refusal_rate": 9.63, "unsafe_refusal_rate": 93.33 },
+    { "model": "Qwen2.5-7B-SFT-safe", "dialect": "NOISY", "safe_refusal_rate": 21.11, "unsafe_refusal_rate": 90.95 },
+    { "model": "Qwen2.5-7B-SFT-safe", "dialect": "Safe Only", "safe_refusal_rate": 7.20, "unsafe_refusal_rate": null }
+  ]
+}
