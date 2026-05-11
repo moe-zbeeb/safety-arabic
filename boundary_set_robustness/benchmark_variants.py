@@ -38,7 +38,7 @@ DATASET_FILES = [
 ]
 
 GUARD_MODEL  = "/workspace/models/Qwen3Guard-Gen-4B"
-OUTPUT_DIR   = Path("/workspace/results arxive/EXP6a/Results")
+OUTPUT_DIR   = Path("/workspace/Safety-Arabic/results arxive/EXP6a/Results")
 
 # ── constants ────────────────────────────────────────────────────────────────
 
