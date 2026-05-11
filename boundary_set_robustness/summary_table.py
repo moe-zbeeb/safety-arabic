@@ -42,21 +42,24 @@ def load(input_dir):
     return rows
 
 
-def print_table(rows):
-    col1 = max(len(MODEL_SHORT.get(r["model"], r["model"])) for r in rows)
+def build_table(rows):
+    col1   = max(len(MODEL_SHORT.get(r["model"], r["model"])) for r in rows)
     header = f"{'Model':<{col1}}  {'Variant':<8}  {'Safe Refusal%':>14}  {'Unsafe Refusal%':>16}"
     sep    = "-" * len(header)
-    print(sep)
-    print(header)
-    print(sep)
+    lines  = [sep, header, sep]
     prev_model = None
     for r in rows:
         name = MODEL_SHORT.get(r["model"], r["model"])
         if prev_model and name != prev_model:
-            print()
-        print(f"{name:<{col1}}  {r['dialect']:<8}  {r['safe']:>13.1f}%  {r['unsafe']:>15.1f}%")
+            lines.append("")
+        lines.append(f"{name:<{col1}}  {r['dialect']:<8}  {r['safe']:>13.1f}%  {r['unsafe']:>15.1f}%")
         prev_model = name
-    print(sep)
+    lines.append(sep)
+    return "\n".join(lines)
+
+
+def print_table(rows):
+    print(build_table(rows))
 
 
 def save_csv(rows, out_path):
@@ -78,8 +81,13 @@ def main():
         return
 
     print_table(rows)
-    out = Path(args.input).parent / "summary_table.csv"
-    save_csv(rows, out)
+
+    out_dir = Path(args.input).parent
+    save_csv(rows, out_dir / "summary_table.csv")
+
+    txt_path = out_dir / "summary_table.txt"
+    txt_path.write_text(build_table(rows), encoding="utf-8")
+    print(f"saved → {txt_path}")
 
 
 if __name__ == "__main__":
