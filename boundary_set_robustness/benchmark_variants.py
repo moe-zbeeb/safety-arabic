@@ -28,7 +28,7 @@ from vllm import LLM, SamplingParams
 
 # ── paths ────────────────────────────────────────────────────────────────────
 
-DATASET_DIR = Path("/workspace/boundary_set")
+DATASET_DIR = Path("/workspace/Safety-Arabic/boundary_set")
 DATASET_FILES = [
     "Arabic boundary-set_ARABIZI.json",
     "Arabic boundary-set_EGY.json",
