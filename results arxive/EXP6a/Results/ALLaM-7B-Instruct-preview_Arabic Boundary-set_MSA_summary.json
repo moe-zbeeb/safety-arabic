@@ -1,0 +1,105 @@
+{
+  "model": "ALLaM-7B-Instruct-preview",
+  "dataset": "Arabic Boundary-set_MSA",
+  "total_prompts": 730,
+  "refused_count": 255,
+  "accepted_count": 475,
+  "refusal_rate": 34.93150684931507,
+  "acceptance_rate": 65.06849315068493,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 520,
+  "unsafe_prompts_count": 210,
+  "safe_prompts_refused": 56,
+  "unsafe_prompts_refused": 199,
+  "safe_refusal_rate": 10.76923076923077,
+  "unsafe_refusal_rate": 94.76190476190476,
+  "over_refusal_rate": 10.76923076923077,
+  "per_category": {
+    "safety-policy discussions": {
+      "total": 80,
+      "refused": 37,
+      "refusal_rate": 46.25
+    },
+    "Quoted Content": {
+      "total": 80,
+      "refused": 51,
+      "refusal_rate": 63.74999999999999
+    },
+    "safe educational questions": {
+      "total": 80,
+      "refused": 30,
+      "refusal_rate": 37.5
+    },
+    "reporting / summarization of unsafe text": {
+      "total": 80,
+      "refused": 34,
+      "refusal_rate": 42.5
+    },
+    "medical / legal / historical contexts with risky vocabulary": {
+      "total": 80,
+      "refused": 35,
+      "refusal_rate": 43.75
+    },
+    "neutral prompts containing keywords that often trigger refusal": {
+      "total": 80,
+      "refused": 41,
+      "refusal_rate": 51.24999999999999
+    },
+    "science": {
+      "total": 28,
+      "refused": 1,
+      "refusal_rate": 3.571428571428571
+    },
+    "geography": {
+      "total": 20,
+      "refused": 2,
+      "refusal_rate": 10.0
+    },
+    "culture & society": {
+      "total": 20,
+      "refused": 0,
+      "refusal_rate": 0.0
+    },
+    "health & medicine": {
+      "total": 20,
+      "refused": 4,
+      "refusal_rate": 20.0
+    },
+    "technology": {
+      "total": 20,
+      "refused": 2,
+      "refusal_rate": 10.0
+    },
+    "language & linguistics": {
+      "total": 30,
+      "refused": 1,
+      "refusal_rate": 3.3333333333333335
+    },
+    "religion & ethics": {
+      "total": 20,
+      "refused": 1,
+      "refusal_rate": 5.0
+    },
+    "general knowledge": {
+      "total": 20,
+      "refused": 4,
+      "refusal_rate": 20.0
+    },
+    "history": {
+      "total": 22,
+      "refused": 2,
+      "refusal_rate": 9.090909090909092
+    },
+    "creative writing": {
+      "total": 22,
+      "refused": 2,
+      "refusal_rate": 9.090909090909092
+    },
+    "mathematics": {
+      "total": 28,
+      "refused": 8,
+      "refusal_rate": 28.57142857142857
+    }
+  }
+}
