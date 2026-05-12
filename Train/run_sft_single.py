@@ -97,7 +97,7 @@ def main():
 
     # Tokenizer
     print(f"[sft] Loading tokenizer from {args.base_model}")
-    tokenizer = AutoTokenizer.from_pretrained(args.base_model, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(args.base_model)
 
     # Dataset
     print(f"[sft] Loading dataset from {args.data_file}")
@@ -157,7 +157,6 @@ def main():
         torch_dtype=torch.bfloat16,
         device_map={"": 0},            # relative to CUDA_VISIBLE_DEVICES
         attn_implementation="eager",   # needed for Gemma2-family (Fanar); harmless elsewhere
-        trust_remote_code=True,
     )
     print(f"[sft] Model loaded. GPU memory: {torch.cuda.memory_allocated()/1e9:.2f} GB")
 
