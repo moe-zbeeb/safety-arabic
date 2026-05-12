@@ -1,0 +1,16 @@
+{
+  "model": "Hala-9b-95-5-beneficial-first__final",
+  "total_prompts": 12077,
+  "refused_count": 3540,
+  "accepted_count": 8537,
+  "refusal_rate": 29.311915210731144,
+  "acceptance_rate": 70.68808478926886,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 2356,
+  "unsafe_prompts_refused": 1184,
+  "safe_refusal_rate": 21.768456065785827,
+  "unsafe_refusal_rate": 94.41786283891547
+}
