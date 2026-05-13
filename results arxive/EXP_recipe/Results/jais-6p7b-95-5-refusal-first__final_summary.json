@@ -1,0 +1,16 @@
+{
+  "model": "jais-6p7b-95-5-refusal-first__final",
+  "total_prompts": 12077,
+  "refused_count": 2629,
+  "accepted_count": 9448,
+  "refusal_rate": 21.768651155088182,
+  "acceptance_rate": 78.23134884491182,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1803,
+  "unsafe_prompts_refused": 826,
+  "safe_refusal_rate": 16.658967014690937,
+  "unsafe_refusal_rate": 65.86921850079744
+}

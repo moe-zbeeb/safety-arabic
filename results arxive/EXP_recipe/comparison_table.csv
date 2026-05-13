@@ -1,0 +1,5 @@
+Model,Recipe,Regime,Safe(base)%,Safe(sft)%,Unsafe(base)%,Unsafe(sft)%
+Mistral-7B-Instruct-v0.3,80/20 interleaved,Miscalibrated,24.23,47.21,52.31,92.34
+Hala-9B,95/5 beneficial-first,Safety-prior strong,9.34,21.77,84.37,94.42
+jais-6p7b,95/5 refusal-first,Under-protective,10.13,16.66,57.41,65.87
+Qwen3-8B,95/5 refusal-first,Under-protective,8.00,11.55,61.96,83.09
