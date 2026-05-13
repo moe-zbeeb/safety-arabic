@@ -1,0 +1,16 @@
+{
+  "model": "Qwen3-8B-95-5-refusal-first__final",
+  "total_prompts": 12077,
+  "refused_count": 2292,
+  "accepted_count": 9785,
+  "refusal_rate": 18.978223068642876,
+  "acceptance_rate": 81.02177693135712,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "safe_prompts_count": 10823,
+  "unsafe_prompts_count": 1254,
+  "safe_prompts_refused": 1250,
+  "unsafe_prompts_refused": 1042,
+  "safe_refusal_rate": 11.549477963596045,
+  "unsafe_refusal_rate": 83.09409888357257
+}
